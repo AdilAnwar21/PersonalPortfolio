@@ -6,6 +6,7 @@ export interface ITestimonial extends Document {
   company?: string;
   content: string;
   avatarUrl?: string;
+  rating?: number;
   status: 'Pending' | 'Approved' | 'Rejected';
 }
 
@@ -15,6 +16,7 @@ const TestimonialSchema: Schema = new Schema({
   company: { type: String },
   content: { type: String, required: true },
   avatarUrl: { type: String },
+  rating: { type: Number, min: 1, max: 5, default: 5 },
   status: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' },
 }, { timestamps: true });
 

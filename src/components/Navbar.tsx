@@ -2,45 +2,135 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useState } from "react";
+
+const links = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
+];
 
 export function Navbar() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { scrollY } = useScroll();
 
-  // Hide navbar on admin routes
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setScrolled(y > 40);
+  });
+
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/login")) {
     return null;
   }
 
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center mt-6 px-4"
-    >
-      <nav className="glass px-6 py-3 rounded-full flex gap-8 items-center shadow-2xl shadow-black/50">
-        {links.map((link) => (
-          <Link
+    <>
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-5"
+      >
+        <nav
+          className={`w-full max-w-5xl flex items-center justify-between px-5 py-3 rounded-2xl border transition-all duration-500 ${
+            scrolled
+              ? "bg-background/80 backdrop-blur-xl border-border/80 shadow-2xl shadow-black/10"
+              : "bg-transparent border-transparent"
+          }`}
+        >
+          {/* Logo / Brand */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 group-hover:scale-110 transition-transform">
+              <span className="text-white text-xs font-bold font-display">A</span>
+            </div>
+            <span className="font-display font-semibold text-sm text-foreground tracking-tight hidden sm:block">
+              Portfolio
+            </span>
+          </Link>
+
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {links.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="relative px-4 py-2 text-sm font-medium text-foreground/60 hover:text-foreground transition-colors rounded-xl hover:bg-foreground/5 group"
+              >
+                {link.name}
+                <span className="absolute bottom-1.5 left-4 right-4 h-px bg-highlight-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              </a>
+            ))}
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
+            <a
+              href="#contact"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white text-xs font-semibold rounded-xl shadow-lg shadow-highlight-primary/25 hover:shadow-highlight-primary/40 hover:scale-105 transition-all duration-200"
+            >
+              Hire Me
+            </a>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMobileOpen((v) => !v)}
+              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-xl border border-border hover:bg-card/50 transition-colors"
+              aria-label="Menu"
+            >
+              <motion.span
+                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                className="w-4 h-0.5 bg-foreground rounded-full block"
+              />
+              <motion.span
+                animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                className="w-4 h-0.5 bg-foreground rounded-full block"
+              />
+              <motion.span
+                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                className="w-4 h-0.5 bg-foreground rounded-full block"
+              />
+            </button>
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Mobile drawer */}
+      <motion.div
+        initial={false}
+        animate={mobileOpen ? { opacity: 1, y: 0, pointerEvents: "auto" } : { opacity: 0, y: -20, pointerEvents: "none" }}
+        className="fixed top-20 left-4 right-4 z-40 md:hidden bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl p-4"
+      >
+        {links.map((link, i) => (
+          <motion.a
             key={link.name}
             href={link.href}
-            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+            onClick={() => setMobileOpen(false)}
+            initial={{ opacity: 0, x: -20 }}
+            animate={mobileOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ delay: i * 0.05 }}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 transition-colors"
           >
+            <span className="w-1.5 h-1.5 rounded-full bg-highlight-primary/50" />
             {link.name}
-          </Link>
+          </motion.a>
         ))}
-        <div className="pl-4 border-l border-zinc-700">
-          <ThemeToggle />
+        <div className="mt-3 pt-3 border-t border-border">
+          <a
+            href="#contact"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white text-sm font-semibold rounded-xl"
+          >
+            Hire Me →
+          </a>
         </div>
-      </nav>
-    </motion.header>
+      </motion.div>
+    </>
   );
 }
