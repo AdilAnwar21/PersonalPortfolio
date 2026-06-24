@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getSettings } from "@/app/actions/settings";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -18,7 +19,16 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    getSettings().then((settings) => {
+      if (settings?.profilePhotoUrl) {
+        setProfilePhotoUrl(settings.profilePhotoUrl);
+      }
+    });
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     setScrolled(y > 40);
@@ -45,9 +55,13 @@ export function Navbar() {
         >
           {/* Logo / Brand */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 group-hover:scale-110 transition-transform">
-              <span className="text-white text-xs font-bold font-display">A</span>
-            </div>
+            {profilePhotoUrl ? (
+              <img src={profilePhotoUrl} alt="Logo" className="w-8 h-8 rounded-xl object-cover shadow-lg group-hover:scale-110 transition-transform" />
+            ) : (
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 group-hover:scale-110 transition-transform">
+                <span className="text-white text-xs font-bold font-display">A</span>
+              </div>
+            )}
             <span className="font-display font-semibold text-sm text-foreground tracking-tight hidden sm:block">
               Portfolio
             </span>
@@ -73,7 +87,7 @@ export function Navbar() {
 
             <a
               href="#contact"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white text-xs font-semibold rounded-xl shadow-lg shadow-highlight-primary/25 hover:shadow-highlight-primary/40 hover:scale-105 transition-all duration-200"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-transparent border border-foreground text-foreground text-xs font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300"
             >
               Hire Me
             </a>
@@ -125,7 +139,7 @@ export function Navbar() {
           <a
             href="#contact"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white text-sm font-semibold rounded-xl"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-transparent border border-foreground text-foreground text-sm font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300"
           >
             Hire Me →
           </a>

@@ -141,7 +141,7 @@ export default async function AdminSettings() {
 
         <button
           type="submit"
-          className="w-full py-4 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white font-semibold rounded-xl shadow-lg shadow-highlight-primary/25 hover:shadow-highlight-primary/40 hover:scale-[1.01] transition-all duration-200 text-sm"
+          className="w-full py-4 bg-transparent border border-foreground text-foreground font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300 text-sm"
         >
           Save All Settings
         </button>

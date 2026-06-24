@@ -34,7 +34,7 @@ export default async function Home() {
 
       <Hero
         title={settings.heroTitle || "Creative Developer"}
-        subtitle={settings.heroSubtitle || "Building Digital Experiences"}
+        subtitle={settings.heroSubtitle || "Software Engineer"}
         resumeUrl={settings.resumePdfUrl}
         profilePhotoUrl={settings.profilePhotoUrl}
         socialLinks={settings.socialLinks}
@@ -50,10 +50,10 @@ export default async function Home() {
             <div className="mb-20">
               <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-4">About Me</p>
               <h2 className="text-4xl md:text-6xl font-display font-semibold text-foreground leading-tight">
-                Crafting Digital
+                A look into
                 <br />
                 <span className="bg-gradient-to-r from-highlight-primary to-highlight-secondary bg-clip-text text-transparent">
-                  Excellence.
+                  my journey.
                 </span>
               </h2>
             </div>
@@ -70,7 +70,7 @@ export default async function Home() {
                   <h3 className="text-lg font-semibold text-foreground">The Story</h3>
                 </div>
                 <div className="text-foreground/65 text-base leading-relaxed space-y-4">
-                  {(settings.aboutText || "Passionate about building beautiful, fast, and accessible digital experiences. I merge design thinking with engineering precision to craft products that users love.").split("\n").map((p, i) => (
+                  {(settings.aboutText || "I'm a software engineer focused on building clean, performant, and accessible web applications. I enjoy solving complex problems and turning ideas into reality.").split("\n").map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
                 </div>
@@ -105,7 +105,7 @@ export default async function Home() {
                     <Code2 className="w-4 h-4 text-highlight-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground">Technical Stack</h3>
-                  <span className="ml-auto text-xs text-foreground/30 uppercase tracking-wider">Precision Instruments</span>
+                  <span className="ml-auto text-xs text-foreground/30 uppercase tracking-wider">Core Tools</span>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {skills.map((skill, i) => (

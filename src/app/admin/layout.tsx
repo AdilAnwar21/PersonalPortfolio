@@ -4,7 +4,8 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getSettings } from "@/app/actions/settings";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -68,11 +69,20 @@ const navItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    getSettings().then((settings) => {
+      if (settings?.profilePhotoUrl) {
+        setProfilePhotoUrl(settings.profilePhotoUrl);
+      }
+    });
+  }, []);
 
   const currentPage = navItems.find((n) => n.href === pathname)?.name ?? "Admin";
 
   return (
-    <div className="min-h-screen bg-background flex text-foreground">
+    <div className="h-screen overflow-hidden bg-background flex text-foreground">
       {/* ── Sidebar ── */}
       <motion.aside
         animate={{ width: collapsed ? 72 : 240 }}
@@ -81,9 +91,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         {/* Logo area */}
         <div className={`flex items-center gap-3 p-5 ${collapsed ? "justify-center" : ""}`}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 shrink-0">
-            <span className="text-white text-sm font-bold font-display">A</span>
-          </div>
+          {profilePhotoUrl ? (
+            <img src={profilePhotoUrl} alt="Profile" className="w-9 h-9 rounded-xl object-cover shadow-lg shrink-0" />
+          ) : (
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 shrink-0">
+              <span className="text-white text-sm font-bold font-display">A</span>
+            </div>
+          )}
           <AnimatePresence>
             {!collapsed && (
               <motion.div
@@ -184,9 +198,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center text-white text-xs font-bold shadow-md">
-              A
-            </div>
+            {profilePhotoUrl ? (
+              <img src={profilePhotoUrl} alt="Profile" className="w-8 h-8 rounded-full object-cover shadow-md" />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center text-white text-xs font-bold shadow-md">
+                A
+              </div>
+            )}
           </div>
         </header>
 

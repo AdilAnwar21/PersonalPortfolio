@@ -93,7 +93,7 @@ function ParticleCanvas() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139, 92, 246, ${p.alpha})`;
+        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
         ctx.fill();
       });
 
@@ -105,7 +105,7 @@ function ParticleCanvas() {
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(139, 92, 246, ${0.08 * (1 - dist / 100)})`;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.07 * (1 - dist / 100)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -136,8 +136,8 @@ export function Hero({ title, subtitle, resumeUrl, profilePhotoUrl, socialLinks 
   const lastName = words.length > 1 ? words[words.length - 1] : "";
 
   const roles = subtitle
-    ? [subtitle, "Full Stack Developer", "UI/UX Enthusiast"]
-    : ["Full Stack Developer", "UI/UX Enthusiast", "Problem Solver"];
+    ? [subtitle, "Frontend Developer", "Software Engineer"]
+    : ["Software Engineer", "Frontend Developer", "Creative Coder"];
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
@@ -256,7 +256,7 @@ export function Hero({ title, subtitle, resumeUrl, profilePhotoUrl, socialLinks 
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="group relative px-8 py-3.5 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white font-semibold rounded-xl text-sm shadow-lg shadow-highlight-primary/30 overflow-hidden"
+                  className="group relative px-8 py-3.5 bg-transparent border border-foreground text-foreground font-semibold rounded-xl text-sm hover:bg-foreground hover:text-background transition-colors duration-300 overflow-hidden flex items-center justify-center"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     View Resume
@@ -264,14 +264,13 @@ export function Hero({ title, subtitle, resumeUrl, profilePhotoUrl, socialLinks 
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </span>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </motion.a>
               )}
               <motion.a
                 href="#about"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3.5 border border-border bg-card/30 backdrop-blur-sm text-foreground/70 font-semibold rounded-xl text-sm hover:border-foreground/30 hover:text-foreground transition-all duration-200"
+                className="px-8 py-3.5 bg-transparent border border-foreground text-foreground font-semibold rounded-xl text-sm hover:bg-foreground hover:text-background transition-colors duration-300 flex items-center justify-center"
               >
                 Learn More
               </motion.a>
@@ -321,7 +320,7 @@ export function Hero({ title, subtitle, resumeUrl, profilePhotoUrl, socialLinks 
                     {/* Bottom text overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <p className="text-white font-display text-2xl font-semibold tracking-tight">{title}</p>
-                      <p className="text-white/60 text-sm mt-1">{subtitle || "Full Stack Developer"}</p>
+                      <p className="text-white/60 text-sm mt-1">{subtitle || "Software Engineer"}</p>
                     </div>
                   </div>
                 ) : (

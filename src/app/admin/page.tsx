@@ -11,7 +11,7 @@ const quickLinks = [
   { name: "Projects", href: "/admin/projects", color: "from-highlight-primary/20 to-highlight-primary/5", iconColor: "text-highlight-primary" },
   { name: "Experience", href: "/admin/experience", color: "from-highlight-secondary/20 to-highlight-secondary/5", iconColor: "text-highlight-secondary" },
   { name: "Testimonials", href: "/admin/testimonials", color: "from-green-500/20 to-green-500/5", iconColor: "text-green-400" },
-  { name: "Settings", href: "/admin/settings", color: "from-purple-500/20 to-purple-500/5", iconColor: "text-purple-400" },
+  { name: "Settings", href: "/admin/settings", color: "from-sky-500/20 to-sky-500/5", iconColor: "text-sky-400" },
 ];
 
 export default function AdminDashboard() {
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
     { label: "Projects", value: stats.projects, href: "/admin/projects", icon: "📁", accent: "highlight-primary" },
     { label: "Experiences", value: stats.experiences, href: "/admin/experience", icon: "💼", accent: "highlight-secondary" },
     { label: "Testimonials", value: stats.testimonials, href: "/admin/testimonials", icon: "💬", accent: "green" },
-    { label: "Enquiries", value: stats.enquiries, href: "/admin/enquiries", icon: "📬", accent: "purple" },
+    { label: "Enquiries", value: stats.enquiries, href: "/admin/enquiries", icon: "📬", accent: "sky" },
   ];
 
   return (

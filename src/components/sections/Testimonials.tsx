@@ -69,7 +69,7 @@ export function Testimonials({ testimonials }: Props) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setIsModalOpen(true)}
-              className="px-6 py-3 border border-border bg-card/50 backdrop-blur-sm rounded-xl text-sm font-semibold text-foreground/70 hover:border-highlight-primary/50 hover:text-highlight-primary transition-all duration-200 self-start md:self-auto"
+              className="px-6 py-3 bg-transparent border border-foreground text-foreground rounded-xl text-sm font-semibold hover:bg-foreground hover:text-background transition-colors duration-300 self-start md:self-auto"
             >
               + Leave a Review
             </motion.button>
@@ -206,7 +206,7 @@ export function Testimonials({ testimonials }: Props) {
                       disabled={submitStatus === "submitting"}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full py-3.5 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white font-semibold rounded-xl shadow-lg shadow-highlight-primary/25 disabled:opacity-50 transition-all"
+                      className="w-full py-3.5 bg-transparent border border-foreground text-foreground font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300 disabled:opacity-50"
                     >
                       {submitStatus === "submitting" ? "Submitting…" : "Submit Review"}
                     </motion.button>

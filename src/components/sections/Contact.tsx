@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { submitEnquiry } from "@/app/actions/enquiry";
 
-const inputCls = "w-full px-4 py-3.5 bg-card/50 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 focus:border-highlight-primary/50 text-foreground placeholder:text-foreground/30 transition-all duration-200 text-sm backdrop-blur-sm";
+const inputCls =
+  "w-full px-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-highlight-primary/60 focus:ring-2 focus:ring-highlight-primary/10 transition-all duration-200";
 
 export function Contact() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
@@ -21,144 +22,144 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 px-6 relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-highlight-primary/5 rounded-full blur-[100px]" />
-      </div>
+    <section id="contact" className="py-24 px-6">
+      <div className="max-w-3xl mx-auto">
 
-      <div className="max-w-6xl mx-auto">
+        {/* Heading */}
         <FadeIn>
-          <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-4">Let's Talk</p>
-            <h2 className="text-4xl md:text-6xl font-display font-semibold text-foreground mb-4">
-              Start a{" "}
-              <span className="bg-gradient-to-r from-highlight-primary to-highlight-secondary bg-clip-text text-transparent">
-                Conversation
-              </span>
+          <div className="mb-12 text-center">
+            <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-3">
+              Get In Touch
+            </p>
+            <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-4">
+              Let&apos;s Work Together
             </h2>
-            <p className="text-foreground/50 max-w-xl mx-auto">
-              Have a project in mind? Want to collaborate? Or just want to say hi? I'd love to hear from you.
+            <p className="text-foreground/50 text-base max-w-lg mx-auto leading-relaxed">
+              Have a project in mind or want to collaborate? Send me a message and I&apos;ll get back to you within 24 hours.
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-          {/* Info cards */}
-          <FadeIn direction="right" delay={0.1}>
-            <div className="lg:col-span-2 space-y-4">
-              {[
-                {
-                  icon: "📧",
-                  label: "Email",
-                  value: "Drop me a message",
-                  desc: "I typically reply within 24 hours",
-                },
-                {
-                  icon: "💼",
-                  label: "Availability",
-                  value: "Open to work",
-                  desc: "Freelance & full-time opportunities",
-                },
-                {
-                  icon: "🌍",
-                  label: "Location",
-                  value: "Remote-first",
-                  desc: "Available worldwide",
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-start gap-4 p-5 rounded-2xl border border-border bg-card/50 backdrop-blur-sm hover:border-highlight-primary/30 transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-highlight-primary/10 flex items-center justify-center text-lg shrink-0">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <p className="text-xs text-foreground/40 uppercase tracking-wider">{item.label}</p>
-                    <p className="text-sm font-semibold text-foreground mt-0.5">{item.value}</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">{item.desc}</p>
-                  </div>
+        {/* Quick info strip */}
+        <FadeIn delay={0.1}>
+          <div className="flex flex-wrap items-center justify-center gap-6 mb-10 pb-10 border-b border-border">
+            {[
+              { icon: "✉️", text: "Reply within 24h" },
+              { icon: "🌍", text: "Available worldwide" },
+              { icon: "💼", text: "Open to freelance" },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-center gap-2 text-sm text-foreground/50">
+                <span>{icon}</span>
+                <span>{text}</span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Form card */}
+        <FadeIn delay={0.15}>
+          {status === "success" ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-center py-20 rounded-2xl border border-border bg-card"
+            >
+              <div className="w-14 h-14 rounded-full bg-green-500/15 border border-green-500/20 flex items-center justify-center mx-auto mb-5">
+                <svg className="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-display font-semibold text-foreground mb-2">Message Sent</h3>
+              <p className="text-foreground/50 text-sm">Thanks for reaching out — I&apos;ll be in touch soon.</p>
+            </motion.div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="p-8 rounded-2xl border border-border bg-card space-y-5"
+            >
+              {/* Name + Email row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wider">
+                    Name <span className="text-highlight-secondary">*</span>
+                  </label>
+                  <input
+                    name="name"
+                    required
+                    placeholder="John Doe"
+                    className={inputCls}
+                  />
                 </div>
-              ))}
-            </div>
-          </FadeIn>
+                <div>
+                  <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wider">
+                    Email <span className="text-highlight-secondary">*</span>
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="john@example.com"
+                    className={inputCls}
+                  />
+                </div>
+              </div>
 
-          {/* Form */}
-          <FadeIn direction="left" delay={0.2}>
-            <div className="lg:col-span-3">
-              {status === "success" ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-20 px-8 rounded-3xl border border-green-500/20 bg-green-500/5"
-                >
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✓</div>
-                  <h3 className="text-2xl font-display font-semibold text-foreground mb-2">Message Sent!</h3>
-                  <p className="text-foreground/50">Thanks for reaching out. I'll get back to you as soon as possible.</p>
-                </motion.div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm space-y-5 shadow-2xl shadow-black/5"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Name</label>
-                      <input name="name" required placeholder="John Doe" className={inputCls} />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Email</label>
-                      <input name="email" type="email" required placeholder="john@example.com" className={inputCls} />
-                    </div>
-                  </div>
+              {/* Subject */}
+              <div>
+                <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wider">
+                  Subject
+                </label>
+                <input
+                  name="subject"
+                  placeholder="Project inquiry, Collaboration, Just saying hi…"
+                  className={inputCls}
+                />
+              </div>
 
-                  <div>
-                    <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Subject</label>
-                    <input name="subject" placeholder="Project inquiry, Collaboration…" className={inputCls} />
-                  </div>
+              {/* Message */}
+              <div>
+                <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wider">
+                  Message <span className="text-highlight-secondary">*</span>
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows={6}
+                  placeholder="Tell me a bit about your project or what you have in mind…"
+                  className={`${inputCls} resize-none`}
+                />
+              </div>
 
-                  <div>
-                    <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Message</label>
-                    <textarea
-                      name="message"
-                      required
-                      rows={5}
-                      placeholder="Tell me about your project or idea…"
-                      className={`${inputCls} resize-none`}
+              {/* Submit */}
+              <motion.button
+                type="submit"
+                disabled={status === "submitting"}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                className="w-full flex items-center justify-center gap-2.5 py-3.5 rounded-xl bg-transparent border border-foreground text-foreground font-semibold text-sm hover:bg-foreground hover:text-background transition-colors duration-300 disabled:opacity-50"
+              >
+                {status === "submitting" ? (
+                  <>
+                    <motion.span
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
+                      className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full"
                     />
-                  </div>
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  </>
+                )}
+              </motion.button>
+            </form>
+          )}
+        </FadeIn>
 
-                  <motion.button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 bg-gradient-to-r from-highlight-primary to-highlight-primary/80 text-white font-semibold rounded-xl shadow-lg shadow-highlight-primary/25 hover:shadow-highlight-primary/40 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
-                  >
-                    {status === "submitting" ? (
-                      <>
-                        <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                          className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
-                        />
-                        Sending…
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              )}
-            </div>
-          </FadeIn>
-        </div>
       </div>
     </section>
   );
