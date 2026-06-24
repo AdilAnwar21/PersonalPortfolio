@@ -49,10 +49,10 @@ export function Navbar() {
       >
         <nav
           onMouseLeave={() => setHoveredPath(null)}
-          className={`pointer-events-auto flex items-center gap-2 px-3 py-2.5 rounded-full transition-all duration-500 border shadow-2xl ${
+          className={`pointer-events-auto flex items-center justify-between w-full max-w-3xl px-6 py-3 rounded-full transition-all duration-500 border shadow-2xl ${
             scrolled
-              ? "bg-card/70 backdrop-blur-2xl border-border/80 shadow-black/5 dark:shadow-black/40"
-              : "bg-background/40 backdrop-blur-md border-border/30 shadow-transparent"
+              ? "bg-background/40 backdrop-blur-3xl border-border/50 shadow-black/5 dark:shadow-black/40"
+              : "bg-background/20 backdrop-blur-xl border-border/20 shadow-transparent"
           }`}
         >
           {/* Logo / Brand */}
@@ -67,7 +67,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center relative">
+          <div className="hidden md:flex items-center justify-center flex-1 relative gap-1">
             {links.map((link) => (
               <a
                 key={link.name}
@@ -88,15 +88,8 @@ export function Navbar() {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-2 pl-2 border-l border-border/50">
+          <div className="flex items-center gap-2 pl-2 md:border-l md:border-border/50">
             <ThemeToggle />
-
-            <a
-              href="#contact"
-              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-foreground text-background text-xs font-bold rounded-full hover:scale-105 transition-all duration-200 shadow-lg shadow-foreground/20"
-            >
-              Hire Me
-            </a>
 
             {/* Mobile hamburger */}
             <button
