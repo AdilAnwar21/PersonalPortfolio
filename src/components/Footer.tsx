@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Instagram } from "@/components/Icons";
+import { useState, useEffect } from "react";
+import { getSettings } from "@/app/actions/settings";
 
 const footerLinks = [
   { label: "Home", href: "#home" },
@@ -14,6 +16,15 @@ const footerLinks = [
 
 export function Footer() {
   const pathname = usePathname();
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    getSettings().then((settings) => {
+      if (settings?.profilePhotoUrl) {
+        setProfilePhotoUrl(settings.profilePhotoUrl);
+      }
+    });
+  }, []);
 
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/login")) {
     return null;
@@ -29,9 +40,13 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30">
-                <span className="text-white text-sm font-bold font-display">A</span>
-              </div>
+              {profilePhotoUrl ? (
+                <img src={profilePhotoUrl} alt="Logo" className="w-9 h-9 rounded-xl object-cover shadow-lg" />
+              ) : (
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30">
+                  <span className="text-white text-sm font-bold font-display">A</span>
+                </div>
+              )}
               <span className="font-display font-semibold text-foreground">Portfolio</span>
             </div>
             <p className="text-sm text-foreground/50 leading-relaxed max-w-xs">

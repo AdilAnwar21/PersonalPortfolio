@@ -28,11 +28,11 @@
 
   .dark {
     /* Dark mode */
-    --background: #000000;
-    --foreground: #ededed;
-    --card: #0a0a0a;
-    --card-foreground: #ededed;
-    --border: #262626;
+    --background: #09090b;
+    --foreground: #ffffff;
+    --card: #18181b;
+    --card-foreground: #ffffff;
+    --border: #27272a;
     --highlight-primary: #38bdf8;   /* sky-400 */
     --highlight-secondary: #fb923c; /* orange-400 */
   }
