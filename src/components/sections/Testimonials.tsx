@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ITestimonial } from "@/models/Testimonial";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { submitTestimonial } from "@/app/actions/testimonial";
+import { MessageSquareQuote, Check, X } from "lucide-react";
 
 interface Props {
   testimonials: ITestimonial[];
@@ -79,7 +80,7 @@ export function Testimonials({ testimonials }: Props) {
         {approved.length === 0 ? (
           <FadeIn>
             <div className="py-24 text-center rounded-3xl border border-dashed border-border/60 bg-card/20">
-              <div className="text-4xl mb-4">💬</div>
+              <MessageSquareQuote className="w-12 h-12 mx-auto mb-4 text-foreground/20" />
               <p className="text-foreground/40 italic">No testimonials yet. Be the first to leave a review!</p>
             </div>
           </FadeIn>
@@ -154,7 +155,7 @@ export function Testimonials({ testimonials }: Props) {
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-card border border-border text-foreground/50 hover:text-foreground hover:border-foreground/30 transition-all text-sm"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
 
               {submitStatus === "success" ? (
@@ -163,9 +164,9 @@ export function Testimonials({ testimonials }: Props) {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 200 }}
-                    className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-5 text-3xl"
+                    className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-5"
                   >
-                    ✓
+                    <Check className="w-8 h-8" strokeWidth={3} />
                   </motion.div>
                   <h3 className="text-2xl font-display font-semibold text-foreground mb-2">Thank You!</h3>
                   <p className="text-foreground/60 text-sm">Your testimonial has been submitted for review.</p>

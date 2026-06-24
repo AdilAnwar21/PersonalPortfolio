@@ -20,6 +20,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const { scrollY } = useScroll();
 
   useEffect(() => {
@@ -44,50 +45,55 @@ export function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-5"
+        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
       >
         <nav
-          className={`w-full max-w-5xl flex items-center justify-between px-5 py-3 rounded-2xl border transition-all duration-500 ${
+          onMouseLeave={() => setHoveredPath(null)}
+          className={`pointer-events-auto flex items-center gap-2 px-3 py-2.5 rounded-full transition-all duration-500 border shadow-2xl ${
             scrolled
-              ? "bg-background/80 backdrop-blur-xl border-border/80 shadow-2xl shadow-black/10"
-              : "bg-transparent border-transparent"
+              ? "bg-card/70 backdrop-blur-2xl border-border/80 shadow-black/5 dark:shadow-black/40"
+              : "bg-background/40 backdrop-blur-md border-border/30 shadow-transparent"
           }`}
         >
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center group shrink-0 pr-2">
             {profilePhotoUrl ? (
-              <img src={profilePhotoUrl} alt="Logo" className="w-8 h-8 rounded-xl object-cover shadow-lg group-hover:scale-110 transition-transform" />
+              <img src={profilePhotoUrl} alt="Logo" className="w-9 h-9 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform" />
             ) : (
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg shadow-highlight-primary/30 group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <span className="text-white text-xs font-bold font-display">A</span>
               </div>
             )}
-            <span className="font-display font-semibold text-sm text-foreground tracking-tight hidden sm:block">
-              Portfolio
-            </span>
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center relative">
             {links.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-foreground/60 hover:text-foreground transition-colors rounded-xl hover:bg-foreground/5 group"
+                onMouseEnter={() => setHoveredPath(link.href)}
+                className="relative px-5 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors z-10"
               >
+                {hoveredPath === link.href && (
+                  <motion.div
+                    layoutId="navbar-hover"
+                    className="absolute inset-0 bg-foreground/10 rounded-full -z-10"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
                 {link.name}
-                <span className="absolute bottom-1.5 left-4 right-4 h-px bg-highlight-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
               </a>
             ))}
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 pl-2 border-l border-border/50">
             <ThemeToggle />
 
             <a
               href="#contact"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-transparent border border-foreground text-foreground text-xs font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300"
+              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-foreground text-background text-xs font-bold rounded-full hover:scale-105 transition-all duration-200 shadow-lg shadow-foreground/20"
             >
               Hire Me
             </a>
@@ -95,7 +101,7 @@ export function Navbar() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-xl border border-border hover:bg-card/50 transition-colors"
+              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-full hover:bg-foreground/10 transition-colors ml-1"
               aria-label="Menu"
             >
               <motion.span

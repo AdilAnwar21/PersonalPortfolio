@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { submitEnquiry } from "@/app/actions/enquiry";
+import { Mail, Globe2, Briefcase } from "lucide-react";
 
 const inputCls =
   "w-full px-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm placeholder:text-foreground/30 focus:outline-none focus:border-highlight-primary/60 focus:ring-2 focus:ring-highlight-primary/10 transition-all duration-200";
@@ -44,9 +45,9 @@ export function Contact() {
         <FadeIn delay={0.1}>
           <div className="flex flex-wrap items-center justify-center gap-6 mb-10 pb-10 border-b border-border">
             {[
-              { icon: "✉️", text: "Reply within 24h" },
-              { icon: "🌍", text: "Available worldwide" },
-              { icon: "💼", text: "Open to freelance" },
+              { icon: <Mail className="w-4 h-4" />, text: "Reply within 24h" },
+              { icon: <Globe2 className="w-4 h-4" />, text: "Available worldwide" },
+              { icon: <Briefcase className="w-4 h-4" />, text: "Open to freelance" },
             ].map(({ icon, text }) => (
               <div key={text} className="flex items-center gap-2 text-sm text-foreground/50">
                 <span>{icon}</span>

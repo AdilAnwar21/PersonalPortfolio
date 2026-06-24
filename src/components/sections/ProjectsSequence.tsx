@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { IProject } from "@/models/Project";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { FolderOpen } from "lucide-react";
 
 interface Props {
   projects: IProject[];
@@ -29,10 +30,10 @@ const Card = ({
     <div className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
         style={{ scale, top: topOffset }}
-        className="relative flex flex-col md:flex-row w-[92vw] md:w-[78vw] max-w-6xl h-[72vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl shadow-black/40 origin-top border border-border/60"
+        className="relative flex flex-col md:flex-row w-[92vw] md:w-[78vw] max-w-6xl h-[72vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl origin-top border border-border bg-card dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
       >
         {/* Left: info */}
-        <div className="w-full md:w-[45%] p-8 md:p-12 flex flex-col justify-between bg-card/80 backdrop-blur-xl">
+        <div className="w-full md:w-[45%] p-8 md:p-12 flex flex-col justify-between z-10 relative bg-gradient-to-r from-card via-card to-card/95">
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-xs text-foreground/30 font-mono font-medium">
@@ -206,7 +207,9 @@ export function ProjectsSequence({ projects }: Props) {
             </div>
           </div>
           <div className="py-24 text-center rounded-3xl border border-dashed border-border/60 bg-card/20">
-            <div className="w-16 h-16 rounded-2xl bg-highlight-primary/10 flex items-center justify-center mx-auto mb-4 text-2xl">📁</div>
+            <div className="w-16 h-16 rounded-2xl bg-highlight-primary/10 flex items-center justify-center mx-auto mb-4 text-highlight-primary">
+              <FolderOpen className="w-8 h-8" />
+            </div>
             <p className="text-foreground/40 italic">No projects added yet. Add some in the Admin Panel.</p>
           </div>
         </FadeIn>

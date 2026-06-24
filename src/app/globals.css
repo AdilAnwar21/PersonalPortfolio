@@ -17,24 +17,24 @@
 @layer base {
   :root {
     /* Light mode */
-    --background: #f5f7f9;
-    --foreground: #0d1117;
+    --background: #f8fafc;
+    --foreground: #0f172a;
     --card: #ffffff;
-    --card-foreground: #1c2431;
-    --border: #dde3ec;
-    --highlight-primary: #0369a1;   /* sky-700 — deep ocean blue */
-    --highlight-secondary: #c2410c; /* orange-700 — burnt sienna */
+    --card-foreground: #1e293b;
+    --border: #e2e8f0;
+    --highlight-primary: #0284c7;   /* sky-600 */
+    --highlight-secondary: #ea580c; /* orange-600 */
   }
 
   .dark {
     /* Dark mode */
-    --background: #0a0c0f;
-    --foreground: #eef1f6;
-    --card: #111418;
-    --card-foreground: #d8dde8;
-    --border: #1d2129;
-    --highlight-primary: #38bdf8;   /* sky-400 — electric blue */
-    --highlight-secondary: #fb923c; /* orange-400 — warm coral */
+    --background: #000000;
+    --foreground: #ededed;
+    --card: #0a0a0a;
+    --card-foreground: #ededed;
+    --border: #262626;
+    --highlight-primary: #38bdf8;   /* sky-400 */
+    --highlight-secondary: #fb923c; /* orange-400 */
   }
 
   * {
