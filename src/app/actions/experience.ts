@@ -36,3 +36,25 @@ export async function deleteExperience(id: string) {
   await Experience.findByIdAndDelete(id);
   revalidatePath("/admin/experience");
 }
+
+export async function updateExperience(id: string, formData: FormData) {
+  await dbConnect();
+
+  const current = formData.get("current") === "on";
+
+  const data = {
+    role: formData.get("role") as string,
+    company: formData.get("company") as string,
+    location: formData.get("location") as string,
+    startDate: new Date(formData.get("startDate") as string),
+    endDate: current ? null : formData.get("endDate") ? new Date(formData.get("endDate") as string) : null,
+    current,
+    description: (formData.get("description") as string).split("\n").filter(Boolean),
+    technologies: (formData.get("technologies") as string).split(",").map(t => t.trim()).filter(Boolean),
+    order: Number(formData.get("order") || 0),
+  };
+
+  await Experience.findByIdAndUpdate(id, data);
+  revalidatePath("/admin/experience");
+  revalidatePath("/");
+}
