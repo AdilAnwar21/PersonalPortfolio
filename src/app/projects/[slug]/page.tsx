@@ -3,8 +3,10 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { notFound } from "next/navigation";
-import { Globe2 } from "lucide-react";
+import { Globe2, ArrowLeft } from "lucide-react";
 import { Github } from "@/components/Icons";
+import Link from "next/link";
+import { MagneticButton } from "@/components/animations/MagneticButton";
 
 export const revalidate = 60;
 
@@ -22,9 +24,18 @@ export default async function ProjectPreview({ params }: { params: Promise<{ slu
     <main className="relative min-h-screen bg-background text-foreground">
       <Navbar />
       
-      <article className="pt-40 pb-24 px-6 max-w-5xl mx-auto">
+      <article className="pt-32 pb-24 px-6 max-w-5xl mx-auto">
         <FadeIn>
           <header className="mb-12">
+            <div className="mb-10">
+              <MagneticButton>
+                <Link href="/#projects" className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border text-foreground font-mono text-[10px] tracking-wider uppercase rounded-full hover:bg-highlight-primary/10 hover:text-highlight-primary hover:border-highlight-primary/30 transition-all duration-300">
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  Back to Portfolio
+                </Link>
+              </MagneticButton>
+            </div>
+            
             <div className="flex items-center gap-2 mb-6 flex-wrap">
               <span className={`text-xs px-3 py-1.5 rounded-md font-medium tracking-wide uppercase border ${project.category === "Freelance" ? "bg-highlight-primary/10 text-highlight-primary border-highlight-primary/20" : "bg-highlight-secondary/10 text-highlight-secondary border-highlight-secondary/20"}`}>
                 {project.category}

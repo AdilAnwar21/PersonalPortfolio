@@ -19,6 +19,44 @@ function BlogForm({
   submitLabel: string;
   isPending: boolean;
 }) {
+  const [coverImage, setCoverImage] = useState(initial?.coverImage || "");
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        
+        // Max width to keep Base64 size reasonable (e.g. 1200px)
+        let { width, height } = img;
+        const MAX_WIDTH = 1200;
+        
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        // Export as WebP for optimal compression
+        const dataUrl = canvas.toDataURL("image/webp", 0.7);
+        setCoverImage(dataUrl);
+        setIsUploading(false);
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <form
       onSubmit={(e) => {
@@ -50,8 +88,26 @@ function BlogForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={labelCls}>Cover Image URL</label>
-          <input name="coverImage" defaultValue={initial?.coverImage} placeholder="https://…" className={inputCls} />
+          <label className={labelCls}>Cover Image (Upload)</label>
+          <input 
+            type="file" 
+            accept="image/*" 
+            onChange={handleImageUpload} 
+            className="block w-full text-sm text-foreground/80
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-xs file:font-semibold
+              file:bg-highlight-primary/10 file:text-highlight-primary
+              hover:file:bg-highlight-primary/20
+              transition-colors
+            " 
+          />
+          <input type="hidden" name="coverImage" value={coverImage} />
+          {coverImage && (
+            <div className="mt-4 aspect-[21/9] w-full max-w-sm rounded-xl overflow-hidden border border-border">
+              <img src={coverImage} alt="Preview" className="w-full h-full object-cover" />
+            </div>
+          )}
         </div>
         <div>
           <label className={labelCls}>Tags (comma separated)</label>
@@ -68,10 +124,10 @@ function BlogForm({
 
       <button
         type="submit"
-        disabled={isPending}
+        disabled={isPending || isUploading}
         className="px-6 py-2.5 bg-foreground text-background font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 text-sm"
       >
-        {isPending ? "Saving…" : submitLabel}
+        {isPending ? "Saving…" : isUploading ? "Processing Image…" : submitLabel}
       </button>
     </form>
   );

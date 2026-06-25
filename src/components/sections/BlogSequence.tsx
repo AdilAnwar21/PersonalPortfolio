@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IBlog } from "@/models/Blog";
 import { TextReveal } from "@/components/animations/TextReveal";
+import { MagneticButton } from "@/components/animations/MagneticButton";
 
 interface Props {
   blogs: IBlog[];
@@ -146,9 +147,14 @@ export function BlogSequence({ blogs }: Props) {
 
                     {/* Footer */}
                     <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/40">
-                      <span className="font-mono text-[10px] tracking-wider text-foreground/90 uppercase">
-                        Read more →
-                      </span>
+                      <MagneticButton>
+                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-background font-mono text-[10px] tracking-wider uppercase rounded-full hover:bg-[var(--highlight-primary)] hover:text-white transition-colors duration-300">
+                          Read more
+                          <svg className="w-3 h-3 -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 7l-10 10M7 7h10v10" />
+                          </svg>
+                        </span>
+                      </MagneticButton>
                       <div className="flex items-center gap-1 font-mono text-[10px] text-foreground/90">
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
