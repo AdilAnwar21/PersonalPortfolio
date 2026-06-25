@@ -8,10 +8,10 @@ import { getEnquiries } from "@/app/actions/enquiry";
 import Link from "next/link";
 
 const quickLinks = [
-  { name: "Projects", href: "/admin/projects", color: "from-highlight-primary/20 to-highlight-primary/5", iconColor: "text-highlight-primary" },
-  { name: "Experience", href: "/admin/experience", color: "from-highlight-secondary/20 to-highlight-secondary/5", iconColor: "text-highlight-secondary" },
-  { name: "Testimonials", href: "/admin/testimonials", color: "from-green-500/20 to-green-500/5", iconColor: "text-green-400" },
-  { name: "Settings", href: "/admin/settings", color: "from-sky-500/20 to-sky-500/5", iconColor: "text-sky-400" },
+  { name: "Projects", href: "/admin/projects", description: "Manage your portfolio items" },
+  { name: "Experience", href: "/admin/experience", description: "Update your career timeline" },
+  { name: "Testimonials", href: "/admin/testimonials", description: "Review client feedback" },
+  { name: "Settings", href: "/admin/settings", description: "Configure your profile" },
 ];
 
 export default function AdminDashboard() {
@@ -31,83 +31,96 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    { label: "Projects", value: stats.projects, href: "/admin/projects", icon: "📁", accent: "highlight-primary" },
-    { label: "Experiences", value: stats.experiences, href: "/admin/experience", icon: "💼", accent: "highlight-secondary" },
-    { label: "Testimonials", value: stats.testimonials, href: "/admin/testimonials", icon: "💬", accent: "green" },
-    { label: "Enquiries", value: stats.enquiries, href: "/admin/enquiries", icon: "📬", accent: "sky" },
+    { label: "Projects", value: stats.projects, href: "/admin/projects" },
+    { label: "Experiences", value: stats.experiences, href: "/admin/experience" },
+    { label: "Testimonials", value: stats.testimonials, href: "/admin/testimonials" },
+    { label: "Enquiries", value: stats.enquiries, href: "/admin/enquiries" },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10 max-w-5xl mx-auto pt-4">
       {/* Welcome */}
-      <div className="rounded-2xl border border-border bg-gradient-to-br from-highlight-primary/10 via-card to-highlight-secondary/5 p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-highlight-primary/5 rounded-full blur-3xl" />
-        <div className="relative">
-          <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-2">Welcome back</p>
-          <h2 className="text-3xl font-display font-semibold text-foreground mb-2">Admin Dashboard</h2>
-          <p className="text-foreground/80 text-sm max-w-md">Manage your portfolio content, view enquiries, and update your settings from here.</p>
-          <div className="flex items-center gap-3 mt-6">
-            <a
-              href="/"
-              target="_blank"
-              className="flex items-center gap-2 px-4 py-2 bg-highlight-primary/10 border border-highlight-primary/20 text-highlight-primary text-sm font-medium rounded-xl hover:bg-highlight-primary/20 transition-colors"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              View Live Site
-            </a>
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-8 border-b border-border/40">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-card mb-6 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-highlight-primary animate-pulse" />
+            <span className="text-[9px] font-mono tracking-widest text-foreground/80 uppercase">System Active</span>
           </div>
+          <h2 className="text-4xl font-display font-semibold text-foreground tracking-tight mb-2">Admin Engine</h2>
+          <p className="text-foreground/60 text-sm max-w-md">Orchestrate your portfolio content and manage your digital presence.</p>
         </div>
+        <a
+          href="/"
+          target="_blank"
+          className="group flex items-center gap-2 px-5 py-2.5 bg-foreground text-background text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity"
+        >
+          View Live Site
+          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {statCards.map((card) => (
           <Link
             key={card.label}
             href={card.href}
-            className="group p-6 bg-card border border-border rounded-2xl hover:border-highlight-primary/30 hover:shadow-lg hover:shadow-highlight-primary/5 transition-all duration-300"
+            className="group relative p-6 bg-card border border-border/60 rounded-2xl hover:border-highlight-primary/50 transition-all duration-300 overflow-hidden"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center text-xl">
-                {card.icon}
-              </div>
-              <svg className="w-4 h-4 text-foreground/40 group-hover:text-highlight-primary group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <div className="absolute top-0 right-0 w-24 h-24 bg-highlight-primary/5 rounded-bl-full translate-x-12 -translate-y-12 group-hover:bg-highlight-primary/10 transition-colors" />
+            
+            <p className="text-[10px] text-foreground/50 uppercase tracking-widest font-mono mb-6">{card.label}</p>
+            <div className="flex items-end justify-between">
+              <p className="text-4xl font-display font-semibold text-foreground leading-none">{card.value}</p>
+              <svg className="w-4 h-4 text-foreground/30 group-hover:text-highlight-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 7l-10 10M7 7h10v10" />
               </svg>
             </div>
-            <p className="text-3xl font-display font-bold text-foreground">{card.value}</p>
-            <p className="text-xs text-foreground/80 mt-1 uppercase tracking-wider">{card.label}</p>
           </Link>
         ))}
       </div>
 
       {/* Quick actions */}
       <div>
-        <h3 className="text-sm font-semibold text-foreground/90 uppercase tracking-widest mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h3 className="text-[10px] font-mono font-semibold text-foreground/50 uppercase tracking-widest mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className={`p-5 rounded-2xl border border-border bg-gradient-to-br ${link.color} hover:scale-105 hover:shadow-lg transition-all duration-200 group`}
+              className="p-5 rounded-2xl bg-card border border-border/60 hover:bg-background transition-colors group flex flex-col justify-between"
             >
-              <p className={`text-sm font-semibold ${link.iconColor} group-hover:underline`}>
-                + Add {link.name}
-              </p>
-              <p className="text-xs text-foreground/70 mt-1">Manage →</p>
+              <div>
+                <p className="text-sm font-semibold text-foreground mb-1 group-hover:text-highlight-primary transition-colors">
+                  {link.name}
+                </p>
+                <p className="text-xs text-foreground/60">{link.description}</p>
+              </div>
+              <div className="mt-6 flex justify-end">
+                <svg className="w-4 h-4 text-foreground/40 group-hover:text-highlight-primary group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </div>
             </Link>
           ))}
         </div>
       </div>
 
       {/* Tips */}
-      <div className="p-5 rounded-2xl border border-border bg-card/50">
-        <p className="text-xs font-semibold text-foreground/80 uppercase tracking-widest mb-3">💡 Tips</p>
-        <ul className="space-y-2 text-sm text-foreground/90">
-          <li>• Go to <strong className="text-foreground">Settings</strong> to upload your profile photo and resume.</li>
-          <li>• Add your <strong className="text-foreground">GitHub, LinkedIn and Instagram</strong> links in Social Links (JSON).</li>
-          <li>• <strong className="text-foreground">Featured projects</strong> appear in the animated stack sequence on your portfolio.</li>
-          <li>• Image uploads support up to <strong className="text-foreground">10 MB</strong>.</li>
+      <div className="p-6 rounded-2xl bg-card border border-border/60">
+        <div className="flex items-center gap-2 mb-4">
+          <svg className="w-4 h-4 text-highlight-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-[10px] font-mono font-semibold text-foreground/60 uppercase tracking-widest">System Notes</p>
+        </div>
+        <ul className="space-y-3 text-sm text-foreground/70">
+          <li className="flex gap-3"><span className="text-highlight-primary">/</span> Go to <strong className="text-foreground">Settings</strong> to upload your profile photo and resume.</li>
+          <li className="flex gap-3"><span className="text-highlight-primary">/</span> Add your <strong className="text-foreground">GitHub, LinkedIn and Instagram</strong> links in Social Links (JSON).</li>
+          <li className="flex gap-3"><span className="text-highlight-primary">/</span> <strong className="text-foreground">Featured projects</strong> appear in the animated stack sequence on your portfolio.</li>
+          <li className="flex gap-3"><span className="text-highlight-primary">/</span> Image uploads support up to <strong className="text-foreground">10 MB</strong>.</li>
         </ul>
       </div>
     </div>

@@ -79,7 +79,7 @@ export function Hero({
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col overflow-hidden bg-background"
+      className="relative min-h-screen flex flex-col overflow-hidden"
     >
       {/* Subtle radial glow — single hot-pink bloom */}
       <div

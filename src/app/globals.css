@@ -88,6 +88,8 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(color-mix(in srgb, var(--foreground) 15%, transparent) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 
 /* ── Grain texture overlay ── */
