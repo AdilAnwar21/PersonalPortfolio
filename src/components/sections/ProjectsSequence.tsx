@@ -74,7 +74,13 @@ const Card = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-5 mt-6 pt-6 border-t border-border/50">
+          <div className="flex flex-wrap items-center gap-5 mt-6 pt-6 border-t border-border/50">
+            <a
+              href={`/projects/${project.slug}`}
+              className="flex items-center gap-2 px-4 py-2 bg-foreground text-background rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+            >
+              View Case Study
+            </a>
             {project.liveUrl && (
               <a
                 href={project.liveUrl}

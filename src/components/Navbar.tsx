@@ -8,11 +8,11 @@ import { useState, useEffect } from "react";
 import { getSettings } from "@/app/actions/settings";
 
 const links = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -69,7 +69,7 @@ export function Navbar() {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center justify-center flex-1 relative gap-1">
             {links.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onMouseEnter={() => setHoveredPath(link.href)}
@@ -83,7 +83,7 @@ export function Navbar() {
                   />
                 )}
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -121,28 +121,16 @@ export function Navbar() {
         className="fixed top-20 left-4 right-4 z-40 md:hidden bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl p-4"
       >
         {links.map((link, i) => (
-          <motion.a
+          <Link
             key={link.name}
             href={link.href}
             onClick={() => setMobileOpen(false)}
-            initial={{ opacity: 0, x: -20 }}
-            animate={mobileOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-            transition={{ delay: i * 0.05 }}
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-highlight-primary/50" />
             {link.name}
-          </motion.a>
+          </Link>
         ))}
-        <div className="mt-3 pt-3 border-t border-border">
-          <a
-            href="#contact"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-center gap-2 w-full py-3 bg-transparent border border-foreground text-foreground text-sm font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300"
-          >
-            Hire Me →
-          </a>
-        </div>
       </motion.div>
     </>
   );

@@ -6,15 +6,18 @@ import { ProjectsSequence } from "@/components/sections/ProjectsSequence";
 import { ExperienceSequence } from "@/components/sections/ExperienceSequence";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
+import { BlogSequence } from "@/components/sections/BlogSequence";
 import { getSettings } from "@/app/actions/settings";
 import { getProjects } from "@/app/actions/project";
 import { getExperiences } from "@/app/actions/experience";
 import { getTestimonials } from "@/app/actions/testimonial";
+import { getBlogs } from "@/app/actions/blog";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { ISettings } from "@/models/Settings";
 import { IProject } from "@/models/Project";
 import { IExperience } from "@/models/Experience";
 import { ITestimonial } from "@/models/Testimonial";
+import { IBlog } from "@/models/Blog";
 
 export const revalidate = 60;
 
@@ -23,6 +26,7 @@ export default async function Home() {
   const projects: IProject[] = await getProjects();
   const experiences: IExperience[] = await getExperiences();
   const testimonials: ITestimonial[] = await getTestimonials();
+  const blogs: IBlog[] = await getBlogs();
 
   const skills = settings.skills?.length
     ? settings.skills
@@ -127,6 +131,7 @@ export default async function Home() {
       <ProjectsSequence projects={projects} />
       <ExperienceSequence experiences={experiences} />
       <Testimonials testimonials={testimonials} />
+      <BlogSequence blogs={blogs} />
       <Contact />
 
       <Footer />
