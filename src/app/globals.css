@@ -38,12 +38,12 @@
   .dark {
     /* Dark mode — near-black + hot pink */
     --background: #080808;
-    --foreground: #f0efe9;
+    --foreground: #ffffff;
     --card: #0e0e0e;
-    --card-foreground: #f0efe9;
-    --border: #1e1e1e;
+    --card-foreground: #ffffff;
+    --border: #2a2a2a;
     --highlight-primary: #ff2d78;   /* Apple hot pink */
-    --highlight-secondary: #f0efe9;
+    --highlight-secondary: #ffffff;
     --grain-opacity: 0.05;
     --cursor-color: #ff2d78;
   }

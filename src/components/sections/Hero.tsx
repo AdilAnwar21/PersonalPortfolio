@@ -146,7 +146,7 @@ export function Hero({
 
         {/* ── Giant display typography ── */}
         <div
-          className="relative z-10 font-display font-semibold leading-[0.82] tracking-[-0.03em] select-none"
+          className="relative z-10 font-display font-semibold leading-[0.82] tracking-[-0.03em] select-none text-foreground"
           style={{ fontSize: "clamp(4rem, 11.5vw, 9.5rem)" }}
         >
           <TextReveal text={line1 || title} delay={0.3} />
