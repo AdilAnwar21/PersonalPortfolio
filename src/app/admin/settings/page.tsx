@@ -40,6 +40,19 @@ export default async function AdminSettings() {
             <label className={labelCls}>Contact Email</label>
             <input name="contactEmail" defaultValue={settings?.contactEmail} type="email" required placeholder="hello@example.com" className={inputCls} />
           </div>
+          <div className="flex items-center gap-3 pt-2">
+            <input 
+              type="checkbox" 
+              name="availableForWork" 
+              defaultChecked={settings?.availableForWork ?? true}
+              id="availableForWork"
+              value="true"
+              className="w-5 h-5 accent-highlight-primary bg-background border-border rounded" 
+            />
+            <label htmlFor="availableForWork" className="text-sm font-semibold text-foreground/90 cursor-pointer select-none">
+              Available for work (Shows pulsing badge on landing page)
+            </label>
+          </div>
         </section>
 
         {/* ── Profile Photo ── */}

@@ -15,6 +15,7 @@ interface HeroProps {
   profilePhotoUrl?: string;
   socialLinks?: ISocialLink[];
   skills?: string[];
+  availableForWork?: boolean;
 }
 
 const socialIconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
@@ -63,6 +64,7 @@ export function Hero({
   profilePhotoUrl,
   socialLinks,
   skills,
+  availableForWork = true,
 }: HeroProps) {
   const marqueeItems = skills?.length ? skills : defaultSkills;
 
@@ -97,36 +99,41 @@ export function Hero({
       />
 
       {/* ── Status badge ── */}
-      <motion.div
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-28 left-6 md:left-10 lg:left-16 z-10"
-      >
-        <div
-          className="inline-flex items-center gap-2 px-3 py-1.5 border border-border text-[10px] font-mono tracking-[0.18em] uppercase text-foreground"
-          style={{ borderRadius: 99 }}
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse shrink-0"
-            style={{ backgroundColor: "var(--highlight-primary)" }}
-          />
-          Available for work
-        </div>
-      </motion.div>
+      <AnimatePresence>
+        {availableForWork && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-28 left-6 md:left-10 lg:left-16 z-10"
+          >
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 border border-border bg-background/50 backdrop-blur-md text-[10px] font-mono tracking-[0.18em] uppercase text-foreground"
+              style={{ borderRadius: 99 }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse shrink-0"
+                style={{ backgroundColor: "var(--highlight-primary)" }}
+              />
+              Available for work
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Main content area ── */}
       <div className="flex-1 flex flex-col justify-center px-6 md:px-10 lg:px-16 pt-32 pb-12 relative">
 
-        {/* Profile photo — absolute, overlapping typography (desktop) */}
+        {/* Profile photo — flows naturally on mobile, absolute overlapping on desktop */}
         {profilePhotoUrl && (
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-6 md:right-10 lg:right-16 top-1/2 -translate-y-1/2 hidden lg:block z-10"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8 lg:mb-0 lg:absolute lg:right-16 lg:top-1/2 lg:-translate-y-1/2 z-10 origin-left lg:origin-center"
           >
-            <div className="relative rounded-3xl overflow-hidden" style={{ width: "20vw", maxWidth: 280 }}>
+            <div className="relative rounded-3xl overflow-hidden w-32 md:w-48 lg:w-[20vw] lg:max-w-[280px]">
               <img
                 src={profilePhotoUrl}
                 alt="Profile"

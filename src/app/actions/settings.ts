@@ -30,6 +30,7 @@ export async function updateSettings(formData: FormData) {
     heroSubtitle: formData.get("heroSubtitle") as string,
     aboutText: formData.get("aboutText") as string,
     contactEmail: formData.get("contactEmail") as string,
+    availableForWork: formData.get("availableForWork") === "true",
   };
 
   // Handle Resume File Upload

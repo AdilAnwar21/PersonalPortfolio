@@ -100,12 +100,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const currentPage = navItems.find((n) => n.href === pathname)?.name ?? "Admin";
 
   return (
-    <div className="h-screen overflow-hidden bg-background flex text-foreground">
+    <div className="h-screen overflow-hidden flex text-foreground">
       {/* ── Sidebar ── */}
       <motion.aside
         animate={{ width: collapsed ? 72 : 240 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="shrink-0 border-r border-border bg-card/50 backdrop-blur-sm flex flex-col relative z-10 overflow-hidden"
+        className="shrink-0 border-r border-border bg-card/40 backdrop-blur-md flex flex-col relative z-50"
       >
         {/* Logo area */}
         <div className={`flex items-center gap-3 p-5 ${collapsed ? "justify-center" : ""}`}>

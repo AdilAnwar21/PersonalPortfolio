@@ -46,6 +46,7 @@ export default async function Home() {
         profilePhotoUrl={settings.profilePhotoUrl}
         socialLinks={settings.socialLinks}
         skills={skills}
+        availableForWork={settings.availableForWork ?? true}
       />
 
       <AboutSection
