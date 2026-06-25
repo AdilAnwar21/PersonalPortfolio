@@ -3,13 +3,16 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { notFound } from "next/navigation";
-import { Github, Globe2 } from "lucide-react";
+import { Globe2 } from "lucide-react";
+import { Github } from "@/components/Icons";
 
 export const revalidate = 60;
 
-export default async function ProjectPreview({ params }: { params: { slug: string } }) {
+export default async function ProjectPreview({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const projects = await getProjects();
-  const project = projects.find((p: any) => p.slug === params.slug);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const project = projects.find((p: any) => p.slug === slug);
 
   if (!project) {
     notFound();
@@ -27,7 +30,7 @@ export default async function ProjectPreview({ params }: { params: { slug: strin
                 {project.category}
               </span>
               {project.tags?.map((tag: string) => (
-                <span key={tag} className="text-xs px-3 py-1.5 rounded-md bg-card text-foreground/70 font-medium tracking-wide uppercase border border-border">
+                <span key={tag} className="text-xs px-3 py-1.5 rounded-md bg-card text-foreground font-medium tracking-wide uppercase border border-border">
                   {tag}
                 </span>
               ))}
@@ -37,7 +40,7 @@ export default async function ProjectPreview({ params }: { params: { slug: strin
               {project.title}
             </h1>
             
-            <p className="text-xl text-foreground/70 max-w-3xl leading-relaxed mb-8">
+            <p className="text-xl text-foreground max-w-3xl leading-relaxed mb-8">
               {project.description}
             </p>
             

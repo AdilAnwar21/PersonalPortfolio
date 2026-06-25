@@ -12,7 +12,7 @@ export default async function AdminEnquiries() {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-1">Inbox</p>
-          <p className="text-foreground/50 text-sm">{enquiries.length} total · {unread} unread</p>
+          <p className="text-foreground/80 text-sm">{enquiries.length} total · {unread} unread</p>
         </div>
         {unread > 0 && (
           <span className="flex items-center gap-1.5 px-3 py-1.5 bg-highlight-primary/10 border border-highlight-primary/20 text-highlight-primary text-xs font-semibold rounded-xl">
@@ -27,7 +27,7 @@ export default async function AdminEnquiries() {
         {enquiries.length === 0 && (
           <div className="py-20 text-center rounded-2xl border border-dashed border-border/60 bg-card/20">
             <div className="text-4xl mb-3">📭</div>
-            <p className="text-foreground/40">No messages yet.</p>
+            <p className="text-foreground/70">No messages yet.</p>
           </div>
         )}
 
@@ -59,7 +59,7 @@ export default async function AdminEnquiries() {
                         New
                       </span>
                     )}
-                    <span className="text-foreground/30 text-xs ml-auto">
+                    <span className="text-foreground/60 text-xs ml-auto">
                       {new Date(enquiry.createdAt).toLocaleDateString("en-GB", {
                         day: "numeric", month: "short", year: "numeric",
                       })}
@@ -71,7 +71,7 @@ export default async function AdminEnquiries() {
                   >
                     {enquiry.email}
                   </a>
-                  <p className="text-sm text-foreground/70 leading-relaxed bg-background/60 rounded-xl px-4 py-3 border border-border/50">
+                  <p className="text-sm text-foreground leading-relaxed bg-background/60 rounded-xl px-4 py-3 border border-border/50">
                     {enquiry.message}
                   </p>
                 </div>
@@ -82,7 +82,7 @@ export default async function AdminEnquiries() {
                     <form action={markReadAction}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/60 hover:border-highlight-primary/40 hover:text-highlight-primary rounded-lg transition-all"
+                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/90 hover:border-highlight-primary/40 hover:text-highlight-primary rounded-lg transition-all"
                       >
                         Mark Read
                       </button>

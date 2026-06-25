@@ -1,8 +1,8 @@
 import { getSettings, updateSettings } from "@/app/actions/settings";
 import { ISettings } from "@/models/Settings";
 
-const inputCls = "w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 text-foreground text-sm placeholder:text-foreground/30 transition-all";
-const labelCls = "block text-xs font-semibold text-foreground/50 mb-1.5 uppercase tracking-wide";
+const inputCls = "w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 text-foreground text-sm placeholder:text-foreground/60 transition-all";
+const labelCls = "block text-xs font-semibold text-foreground/80 mb-1.5 uppercase tracking-wide";
 
 export default async function AdminSettings() {
   const settings: ISettings = await getSettings();
@@ -11,7 +11,7 @@ export default async function AdminSettings() {
     <div className="space-y-8 max-w-3xl">
       <div>
         <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-1">Configuration</p>
-        <p className="text-foreground/50 text-sm">Control how your portfolio looks and what information it shows.</p>
+        <p className="text-foreground/80 text-sm">Control how your portfolio looks and what information it shows.</p>
       </div>
 
       <form action={updateSettings} className="space-y-6">
@@ -53,13 +53,13 @@ export default async function AdminSettings() {
               <img src={settings.profilePhotoUrl} alt="Current profile" className="w-16 h-16 rounded-xl object-cover border border-border" />
               <div>
                 <p className="text-xs font-medium text-foreground">Current photo</p>
-                <p className="text-xs text-foreground/40 truncate max-w-xs">{settings.profilePhotoUrl}</p>
+                <p className="text-xs text-foreground/70 truncate max-w-xs">{settings.profilePhotoUrl}</p>
               </div>
             </div>
           )}
           <div>
             <label className={labelCls}>Upload new photo (up to 10 MB)</label>
-            <input type="file" name="profilePhoto" accept="image/*" className="w-full text-sm text-foreground/50 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-highlight-primary/10 file:text-highlight-primary hover:file:bg-highlight-primary/20 cursor-pointer transition-all" />
+            <input type="file" name="profilePhoto" accept="image/*" className="w-full text-sm text-foreground/80 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-highlight-primary/10 file:text-highlight-primary hover:file:bg-highlight-primary/20 cursor-pointer transition-all" />
           </div>
           <div>
             <label className={labelCls}>Or enter URL</label>
@@ -79,7 +79,7 @@ export default async function AdminSettings() {
                 <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400 text-sm">PDF</div>
                 <div>
                   <p className="text-xs font-medium text-foreground">Resume uploaded</p>
-                  <p className="text-xs text-foreground/40 truncate max-w-xs">{settings.resumePdfUrl}</p>
+                  <p className="text-xs text-foreground/70 truncate max-w-xs">{settings.resumePdfUrl}</p>
                 </div>
               </div>
               <a href={settings.resumePdfUrl} target="_blank" className="text-xs text-highlight-primary hover:underline">View →</a>
@@ -87,7 +87,7 @@ export default async function AdminSettings() {
           )}
           <div>
             <label className={labelCls}>Upload PDF (up to 10 MB)</label>
-            <input type="file" name="resumeFile" accept="application/pdf" className="w-full text-sm text-foreground/50 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-highlight-primary/10 file:text-highlight-primary hover:file:bg-highlight-primary/20 cursor-pointer transition-all" />
+            <input type="file" name="resumeFile" accept="application/pdf" className="w-full text-sm text-foreground/80 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-highlight-primary/10 file:text-highlight-primary hover:file:bg-highlight-primary/20 cursor-pointer transition-all" />
           </div>
           <div>
             <label className={labelCls}>Or enter PDF URL</label>
@@ -110,7 +110,7 @@ export default async function AdminSettings() {
               placeholder="React, Next.js, TypeScript, Node.js, MongoDB, Figma…"
               className={inputCls}
             />
-            <p className="text-xs text-foreground/40 mt-1.5">These appear in the About section skill tags.</p>
+            <p className="text-xs text-foreground/70 mt-1.5">These appear in the About section skill tags.</p>
           </div>
         </section>
 
@@ -129,8 +129,8 @@ export default async function AdminSettings() {
               className={`${inputCls} font-mono`}
             />
             <div className="mt-2 p-3 bg-background/50 rounded-lg border border-border/50">
-              <p className="text-xs font-medium text-foreground/50 mb-1">Format example:</p>
-              <pre className="text-xs text-foreground/40 font-mono leading-relaxed">{`[
+              <p className="text-xs font-medium text-foreground/80 mb-1">Format example:</p>
+              <pre className="text-xs text-foreground/70 font-mono leading-relaxed">{`[
   { "platform": "github", "url": "https://github.com/username" },
   { "platform": "linkedin", "url": "https://linkedin.com/in/username" },
   { "platform": "instagram", "url": "https://instagram.com/username" }

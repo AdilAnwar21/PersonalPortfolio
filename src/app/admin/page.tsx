@@ -45,7 +45,7 @@ export default function AdminDashboard() {
         <div className="relative">
           <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-2">Welcome back</p>
           <h2 className="text-3xl font-display font-semibold text-foreground mb-2">Admin Dashboard</h2>
-          <p className="text-foreground/50 text-sm max-w-md">Manage your portfolio content, view enquiries, and update your settings from here.</p>
+          <p className="text-foreground/80 text-sm max-w-md">Manage your portfolio content, view enquiries, and update your settings from here.</p>
           <div className="flex items-center gap-3 mt-6">
             <a
               href="/"
@@ -71,19 +71,19 @@ export default function AdminDashboard() {
               <div className="w-10 h-10 rounded-xl bg-foreground/5 flex items-center justify-center text-xl">
                 {card.icon}
               </div>
-              <svg className="w-4 h-4 text-foreground/20 group-hover:text-highlight-primary group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-foreground/40 group-hover:text-highlight-primary group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
             <p className="text-3xl font-display font-bold text-foreground">{card.value}</p>
-            <p className="text-xs text-foreground/50 mt-1 uppercase tracking-wider">{card.label}</p>
+            <p className="text-xs text-foreground/80 mt-1 uppercase tracking-wider">{card.label}</p>
           </Link>
         ))}
       </div>
 
       {/* Quick actions */}
       <div>
-        <h3 className="text-sm font-semibold text-foreground/60 uppercase tracking-widest mb-4">Quick Actions</h3>
+        <h3 className="text-sm font-semibold text-foreground/90 uppercase tracking-widest mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {quickLinks.map((link) => (
             <Link
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
               <p className={`text-sm font-semibold ${link.iconColor} group-hover:underline`}>
                 + Add {link.name}
               </p>
-              <p className="text-xs text-foreground/40 mt-1">Manage →</p>
+              <p className="text-xs text-foreground/70 mt-1">Manage →</p>
             </Link>
           ))}
         </div>
@@ -102,8 +102,8 @@ export default function AdminDashboard() {
 
       {/* Tips */}
       <div className="p-5 rounded-2xl border border-border bg-card/50">
-        <p className="text-xs font-semibold text-foreground/50 uppercase tracking-widest mb-3">💡 Tips</p>
-        <ul className="space-y-2 text-sm text-foreground/60">
+        <p className="text-xs font-semibold text-foreground/80 uppercase tracking-widest mb-3">💡 Tips</p>
+        <ul className="space-y-2 text-sm text-foreground/90">
           <li>• Go to <strong className="text-foreground">Settings</strong> to upload your profile photo and resume.</li>
           <li>• Add your <strong className="text-foreground">GitHub, LinkedIn and Instagram</strong> links in Social Links (JSON).</li>
           <li>• <strong className="text-foreground">Featured projects</strong> appear in the animated stack sequence on your portfolio.</li>

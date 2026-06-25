@@ -5,7 +5,7 @@ import { getProjects, addProject, deleteProject, updateProject } from "@/app/act
 import { IProject } from "@/models/Project";
 
 const inputCls = "w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 text-foreground text-sm";
-const labelCls = "block text-xs text-foreground/50 mb-1 font-medium uppercase tracking-wide";
+const labelCls = "block text-xs text-foreground/80 mb-1 font-medium uppercase tracking-wide";
 
 function ProjectForm({
   initial,
@@ -60,7 +60,7 @@ function ProjectForm({
       <div className="p-4 border border-border rounded-xl bg-background/50 space-y-3">
         <div>
           <label className={labelCls}>Main Image — upload file (up to 10 MB)</label>
-          <input type="file" name="mainImageFile" accept="image/*" className="w-full text-sm text-foreground/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-card file:text-foreground hover:file:opacity-80 cursor-pointer" />
+          <input type="file" name="mainImageFile" accept="image/*" className="w-full text-sm text-foreground/90 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-card file:text-foreground hover:file:opacity-80 cursor-pointer" />
         </div>
         <div>
           <label className={labelCls}>Or enter image URL</label>
@@ -84,7 +84,7 @@ function ProjectForm({
       </div>
 
       <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm text-foreground/70">
+        <label className="flex items-center gap-2 text-sm text-foreground">
           <input type="checkbox" name="featured" defaultChecked={initial?.featured} className="accent-highlight-primary" />
           Featured project
         </label>
@@ -148,15 +148,15 @@ export default function AdminProjects() {
 
       {/* Add new */}
       <div className="bg-card border border-border p-6 rounded-2xl">
-        <h2 className="text-lg font-semibold mb-6 text-foreground/80">➕ Add New Project</h2>
+        <h2 className="text-lg font-semibold mb-6 text-foreground">➕ Add New Project</h2>
         <ProjectForm onSubmit={handleAdd} submitLabel="Create Project" isPending={isPending} />
       </div>
 
       {/* Existing projects */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground/80">Existing Projects ({projects.length})</h2>
+        <h2 className="text-lg font-semibold text-foreground">Existing Projects ({projects.length})</h2>
         {projects.length === 0 && (
-          <div className="p-8 text-center text-foreground/40 bg-card rounded-2xl border border-border">No projects yet.</div>
+          <div className="p-8 text-center text-foreground/70 bg-card rounded-2xl border border-border">No projects yet.</div>
         )}
         {projects.map((project) => (
           <div key={String(project._id)} className="bg-card border border-border rounded-2xl overflow-hidden">
@@ -168,7 +168,7 @@ export default function AdminProjects() {
                 )}
                 <div className="min-w-0">
                   <p className="font-semibold truncate">{project.title}</p>
-                  <p className="text-xs text-foreground/50 mt-0.5">
+                  <p className="text-xs text-foreground/80 mt-0.5">
                     <span className={`inline-block px-2 py-0.5 rounded text-xs mr-2 ${project.category === "Freelance" ? "bg-highlight-primary/10 text-highlight-primary" : "bg-highlight-secondary/10 text-highlight-secondary"}`}>
                       {project.category}
                     </span>

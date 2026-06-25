@@ -5,6 +5,13 @@ import { likeBlog } from "@/app/actions/blog";
 import { addComment } from "@/app/actions/comment";
 import { Heart, Send } from "lucide-react";
 
+interface Comment {
+  _id: string;
+  authorName: string;
+  content: string;
+  createdAt: string;
+}
+
 export function BlogInteractions({
   blogId,
   initialLikes,
@@ -12,7 +19,7 @@ export function BlogInteractions({
 }: {
   blogId: string;
   initialLikes: number;
-  comments: any[];
+  comments: Comment[];
 }) {
   const [likes, setLikes] = useState(initialLikes);
   const [liked, setLiked] = useState(false);
@@ -25,7 +32,7 @@ export function BlogInteractions({
     setLikes((l) => l + 1); // Optimistic UI
     try {
       await likeBlog(blogId);
-    } catch (e) {
+    } catch (_e) {
       setLiked(false);
       setLikes((l) => l - 1);
     }
@@ -33,15 +40,16 @@ export function BlogInteractions({
 
   const handleComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setCommentStatus("submitting");
-    const fd = new FormData(e.currentTarget);
+    const fd = new FormData(form);
     const authorName = fd.get("authorName") as string;
     const content = fd.get("content") as string;
 
     startTransition(async () => {
       await addComment(blogId, authorName, content);
       setCommentStatus("success");
-      (e.target as HTMLFormElement).reset();
+      form.reset();
       setTimeout(() => setCommentStatus("idle"), 5000);
     });
   };
@@ -56,7 +64,7 @@ export function BlogInteractions({
           className={`flex items-center gap-2 px-6 py-3 rounded-full border transition-all duration-300 ${
             liked
               ? "bg-red-500/10 border-red-500/30 text-red-500"
-              : "bg-card border-border hover:border-red-400/50 hover:bg-red-400/5 text-foreground/70 hover:text-red-400"
+              : "bg-card border-border hover:border-red-400/50 hover:bg-red-400/5 text-foreground hover:text-red-400"
           }`}
         >
           <Heart className={`w-5 h-5 ${liked ? "fill-current" : ""}`} />
@@ -70,15 +78,15 @@ export function BlogInteractions({
         {/* Comment List */}
         <div className="space-y-6">
           {comments.length === 0 ? (
-            <p className="text-foreground/40 italic">No comments yet. Be the first to share your thoughts!</p>
+            <p className="text-foreground/70 italic">No comments yet. Be the first to share your thoughts!</p>
           ) : (
             comments.map((c) => (
               <div key={c._id} className="p-6 rounded-2xl bg-card border border-border">
                 <div className="flex items-center justify-between mb-3">
                   <span className="font-semibold text-foreground">{c.authorName}</span>
-                  <span className="text-xs text-foreground/40">{new Date(c.createdAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-foreground/70">{new Date(c.createdAt).toLocaleDateString()}</span>
                 </div>
-                <p className="text-foreground/70 text-sm leading-relaxed">{c.content}</p>
+                <p className="text-foreground text-sm leading-relaxed">{c.content}</p>
               </div>
             ))
           )}
@@ -94,7 +102,7 @@ export function BlogInteractions({
           ) : (
             <form onSubmit={handleComment} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Name *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-2 uppercase tracking-wide">Name *</label>
                 <input
                   name="authorName"
                   required
@@ -103,7 +111,7 @@ export function BlogInteractions({
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-foreground/50 mb-2 uppercase tracking-wide">Comment *</label>
+                <label className="block text-xs font-medium text-foreground/80 mb-2 uppercase tracking-wide">Comment *</label>
                 <textarea
                   name="content"
                   required

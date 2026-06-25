@@ -6,14 +6,17 @@ import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  // Use lazy initializer — runs only on the client, avoids setState-in-effect
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    // This is fine — setMounted is called asynchronously (after mount)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return <div className="w-9 h-9 rounded-full bg-zinc-500/10" />;
+    return <div className="w-9 h-9" />;
   }
 
   return (

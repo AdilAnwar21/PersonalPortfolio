@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useEffect, useState, useTransition } from "react";
 import { getAllCommentsAdmin, approveComment, deleteComment } from "@/app/actions/comment";
@@ -37,24 +38,24 @@ export default function AdminComments() {
 
       <div className="space-y-4">
         {comments.length === 0 && (
-          <div className="p-8 text-center text-foreground/40 bg-card rounded-2xl border border-border">No comments yet.</div>
+          <div className="p-8 text-center text-foreground/70 bg-card rounded-2xl border border-border">No comments yet.</div>
         )}
         {comments.map((comment) => (
           <div key={String(comment._id)} className="bg-card border border-border rounded-2xl p-6">
             <div className="flex justify-between items-start gap-4">
               <div>
                 <p className="font-semibold text-foreground">{comment.authorName}</p>
-                <p className="text-xs text-foreground/50 mb-3">
+                <p className="text-xs text-foreground/80 mb-3">
                   On blog: {comment.blogId?.title || "Unknown Blog"}
                 </p>
-                <p className="text-sm text-foreground/80 bg-background/50 p-4 rounded-lg border border-border/50">
+                <p className="text-sm text-foreground bg-background/50 p-4 rounded-lg border border-border/50">
                   {comment.content}
                 </p>
                 <div className="mt-4 flex items-center gap-2">
                   <span className={`inline-block px-2 py-0.5 rounded text-xs ${comment.isApproved ? "bg-green-500/10 text-green-500" : "bg-highlight-secondary/10 text-highlight-secondary"}`}>
                     {comment.isApproved ? "Approved" : "Pending Review"}
                   </span>
-                  <span className="text-xs text-foreground/40">
+                  <span className="text-xs text-foreground/70">
                     {new Date(comment.createdAt).toLocaleDateString()}
                   </span>
                 </div>

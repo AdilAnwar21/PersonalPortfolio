@@ -1,11 +1,12 @@
 "use client";
 
+
 import { useEffect, useState, useTransition } from "react";
 import { getAllBlogsAdmin, createBlog, updateBlog, deleteBlog } from "@/app/actions/blog";
 import { IBlog } from "@/models/Blog";
 
 const inputCls = "w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 text-foreground text-sm";
-const labelCls = "block text-xs text-foreground/50 mb-1 font-medium uppercase tracking-wide";
+const labelCls = "block text-xs text-foreground/80 mb-1 font-medium uppercase tracking-wide";
 
 function BlogForm({
   initial,
@@ -59,7 +60,7 @@ function BlogForm({
       </div>
 
       <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm text-foreground/70">
+        <label className="flex items-center gap-2 text-sm text-foreground">
           <input type="checkbox" name="published" defaultChecked={initial?.published} className="accent-highlight-primary" />
           Published
         </label>
@@ -139,15 +140,15 @@ export default function AdminBlogs() {
 
       {/* Add new */}
       <div className="bg-card border border-border p-6 rounded-2xl">
-        <h2 className="text-lg font-semibold mb-6 text-foreground/80">➕ Write New Blog</h2>
+        <h2 className="text-lg font-semibold mb-6 text-foreground">➕ Write New Blog</h2>
         <BlogForm onSubmit={handleAdd} submitLabel="Create Blog Post" isPending={isPending} />
       </div>
 
       {/* Existing blogs */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground/80">Existing Blogs ({blogs.length})</h2>
+        <h2 className="text-lg font-semibold text-foreground">Existing Blogs ({blogs.length})</h2>
         {blogs.length === 0 && (
-          <div className="p-8 text-center text-foreground/40 bg-card rounded-2xl border border-border">No blog posts yet.</div>
+          <div className="p-8 text-center text-foreground/70 bg-card rounded-2xl border border-border">No blog posts yet.</div>
         )}
         {blogs.map((blog) => (
           <div key={String(blog._id)} className="bg-card border border-border rounded-2xl overflow-hidden">
@@ -159,7 +160,7 @@ export default function AdminBlogs() {
                 )}
                 <div className="min-w-0">
                   <p className="font-semibold truncate">{blog.title}</p>
-                  <p className="text-xs text-foreground/50 mt-0.5">
+                  <p className="text-xs text-foreground/80 mt-0.5">
                     <span className={`inline-block px-2 py-0.5 rounded text-xs mr-2 ${blog.published ? "bg-green-500/10 text-green-500" : "bg-highlight-secondary/10 text-highlight-secondary"}`}>
                       {blog.published ? "Published" : "Draft"}
                     </span>

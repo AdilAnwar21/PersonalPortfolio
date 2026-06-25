@@ -5,7 +5,10 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
+
+// Use a different CSS variable name to avoid conflict with our
+// globals.css @theme definition of --font-display (Clash Display takes priority).
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
 
 export const metadata: Metadata = {
   title: "Portfolio — Full Stack Developer",
@@ -19,16 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground transition-colors duration-300`}>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-background text-foreground transition-colors duration-300`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange={false}
         >
-          <Providers>
-            {children}
-          </Providers>
+          <Providers>{children}</Providers>
         </ThemeProvider>
       </body>
     </html>

@@ -22,7 +22,7 @@ export default async function AdminTestimonials() {
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-1">Reviews</p>
-          <p className="text-foreground/50 text-sm">
+          <p className="text-foreground/80 text-sm">
             {testimonials.length} total · {pending} awaiting review
           </p>
         </div>
@@ -39,7 +39,7 @@ export default async function AdminTestimonials() {
         {testimonials.length === 0 && (
           <div className="py-20 text-center rounded-2xl border border-dashed border-border/60 bg-card/20">
             <div className="text-4xl mb-3">💬</div>
-            <p className="text-foreground/40">No testimonials found.</p>
+            <p className="text-foreground/70">No testimonials found.</p>
           </div>
         )}
 
@@ -66,7 +66,7 @@ export default async function AdminTestimonials() {
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <span className="font-semibold text-foreground text-sm">{test.authorName}</span>
                     {test.authorTitle && (
-                      <span className="text-xs text-foreground/50">
+                      <span className="text-xs text-foreground/80">
                         {test.authorTitle}{test.company ? ` @ ${test.company}` : ""}
                       </span>
                     )}
@@ -86,7 +86,7 @@ export default async function AdminTestimonials() {
                     </div>
                   )}
 
-                  <blockquote className="text-sm text-foreground/70 leading-relaxed italic bg-background/50 rounded-xl px-4 py-3 border border-border/50">
+                  <blockquote className="text-sm text-foreground leading-relaxed italic bg-background/50 rounded-xl px-4 py-3 border border-border/50">
                     &ldquo;{test.content}&rdquo;
                   </blockquote>
                 </div>
@@ -107,7 +107,7 @@ export default async function AdminTestimonials() {
                     <form action={rejectAction}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/60 hover:text-foreground hover:border-foreground/30 rounded-lg transition-all"
+                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/90 hover:text-foreground hover:border-foreground/30 rounded-lg transition-all"
                       >
                         Reject
                       </button>

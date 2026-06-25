@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 transition={{ duration: 0.2 }}
               >
                 <p className="text-sm font-semibold text-foreground leading-none">Admin</p>
-                <p className="text-xs text-foreground/40 mt-0.5">Panel</p>
+                <p className="text-xs text-foreground/70 mt-0.5">Panel</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -134,7 +134,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed((v) => !v)}
-          className="absolute top-5 -right-3 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center shadow-md hover:bg-highlight-primary hover:border-highlight-primary hover:text-white transition-colors text-foreground/50"
+          className="absolute top-5 -right-3 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center shadow-md hover:bg-highlight-primary hover:border-highlight-primary hover:text-white transition-colors text-foreground/80"
         >
           <svg className={`w-3 h-3 transition-transform ${collapsed ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -155,7 +155,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group relative ${
                   active
                     ? "bg-highlight-primary/15 text-highlight-primary"
-                    : "text-foreground/50 hover:text-foreground hover:bg-foreground/5"
+                    : "text-foreground/80 hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
                 {/* Active indicator */}
@@ -188,7 +188,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {!collapsed && (
             <div className="px-3 py-3 rounded-xl bg-highlight-primary/5 border border-highlight-primary/10 mb-3">
               <p className="text-xs font-semibold text-highlight-primary">Portfolio live</p>
-              <a href="/" target="_blank" className="text-[11px] text-foreground/40 hover:text-highlight-primary transition-colors">
+              <a href="/" target="_blank" className="text-[11px] text-foreground/70 hover:text-highlight-primary transition-colors">
                 View site →
               </a>
             </div>
@@ -212,7 +212,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <header className="h-16 border-b border-border bg-card/30 backdrop-blur-sm flex items-center justify-between px-6 shrink-0">
           <div>
             <h1 className="text-base font-semibold text-foreground">{currentPage}</h1>
-            <p className="text-xs text-foreground/40">Admin Panel</p>
+            <p className="text-xs text-foreground/70">Admin Panel</p>
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />

@@ -9,8 +9,9 @@ import ReactMarkdown from "react-markdown";
 
 export const revalidate = 60;
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const blog = await getBlogBySlug(params.slug);
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const blog = await getBlogBySlug(slug);
 
   if (!blog || !blog.published) {
     notFound();
@@ -35,7 +36,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <h1 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-6 leading-tight">
               {blog.title}
             </h1>
-            <div className="flex items-center gap-4 justify-center md:justify-start text-sm text-foreground/50 mb-10">
+            <div className="flex items-center gap-4 justify-center md:justify-start text-sm text-foreground/80 mb-10">
               <span>{new Date(blog.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
               <span>•</span>
               <span className="flex items-center gap-1">

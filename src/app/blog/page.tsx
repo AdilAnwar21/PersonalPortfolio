@@ -19,7 +19,7 @@ export default async function BlogIndex() {
             <h1 className="text-4xl md:text-6xl font-display font-semibold text-foreground mb-4">
               Writing & <span className="bg-gradient-to-r from-highlight-primary to-highlight-secondary bg-clip-text text-transparent">Thoughts</span>
             </h1>
-            <p className="text-foreground/60 text-lg max-w-2xl mx-auto md:mx-0">
+            <p className="text-foreground/90 text-lg max-w-2xl mx-auto md:mx-0">
               Deep dives into software engineering, design, and my journey building digital products.
             </p>
           </div>
@@ -27,8 +27,9 @@ export default async function BlogIndex() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogs.length === 0 && (
-            <p className="text-foreground/40 italic col-span-full">No articles published yet.</p>
+            <p className="text-foreground/70 italic col-span-full">No articles published yet.</p>
           )}
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {blogs.map((blog: any, i: number) => (
             <FadeIn key={blog._id} delay={i * 0.1}>
               <Link href={`/blog/${blog.slug}`} className="group block h-full">
@@ -54,11 +55,11 @@ export default async function BlogIndex() {
                       <h2 className="text-xl font-semibold text-foreground mb-2 group-hover:text-highlight-primary transition-colors line-clamp-2 leading-snug">
                         {blog.title}
                       </h2>
-                      <p className="text-sm text-foreground/60 line-clamp-3 mb-6 leading-relaxed">
+                      <p className="text-sm text-foreground/90 line-clamp-3 mb-6 leading-relaxed">
                         {blog.summary}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between text-xs text-foreground/40 mt-auto pt-4 border-t border-border/50">
+                    <div className="flex items-center justify-between text-xs text-foreground/70 mt-auto pt-4 border-t border-border/50">
                       <span>{new Date(blog.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
                       <span className="flex items-center gap-1 group-hover:text-red-400 transition-colors">
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

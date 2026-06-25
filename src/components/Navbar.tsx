@@ -8,9 +8,8 @@ import { useState, useEffect } from "react";
 import { getSettings } from "@/app/actions/settings";
 
 const links = [
-  { name: "Home", href: "/" },
+  { name: "Work", href: "/#projects" },
   { name: "About", href: "/#about" },
-  { name: "Projects", href: "/#projects" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/#contact" },
 ];
@@ -20,19 +19,16 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
-  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    getSettings().then((settings) => {
-      if (settings?.profilePhotoUrl) {
-        setProfilePhotoUrl(settings.profilePhotoUrl);
-      }
+    getSettings().then((s) => {
+      if (s?.profilePhotoUrl) setProfilePhotoUrl(s.profilePhotoUrl);
     });
   }, []);
 
   useMotionValueEvent(scrollY, "change", (y) => {
-    setScrolled(y > 40);
+    setScrolled(y > 60);
   });
 
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/login")) {
@@ -42,72 +38,74 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
       >
         <nav
-          onMouseLeave={() => setHoveredPath(null)}
-          className={`pointer-events-auto flex items-center justify-between w-full max-w-3xl px-6 py-3 rounded-full transition-all duration-500 border shadow-2xl ${
+          className={`pointer-events-auto flex items-center w-full max-w-2xl px-5 py-3 transition-all duration-500 ${
             scrolled
-              ? "bg-background/40 backdrop-blur-3xl border-border/50 shadow-black/5 dark:shadow-black/40"
-              : "bg-background/20 backdrop-blur-xl border-border/20 shadow-transparent"
+              ? "glass border border-border/60 shadow-2xl shadow-black/20"
+              : "bg-transparent border border-transparent"
           }`}
+          style={{ borderRadius: scrolled ? "9999px" : "9999px" }}
         >
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center group shrink-0 pr-2">
+          <Link href="/" className="flex items-center shrink-0 mr-auto">
             {profilePhotoUrl ? (
-              <img src={profilePhotoUrl} alt="Logo" className="w-9 h-9 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform" />
+              <img
+                src={profilePhotoUrl}
+                alt="Logo"
+                className="w-7 h-7 rounded-full object-cover"
+              />
             ) : (
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-highlight-primary to-highlight-secondary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <span className="text-white text-xs font-bold font-display">A</span>
+              <div
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold font-display"
+                style={{ backgroundColor: "var(--highlight-primary)" }}
+              >
+                A
               </div>
             )}
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center justify-center flex-1 relative gap-1">
+          {/* Desktop links — centered */}
+          <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
             {links.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                onMouseEnter={() => setHoveredPath(link.href)}
-                className="relative px-5 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors z-10"
+                className="relative px-4 py-1.5 text-xs font-mono uppercase tracking-[0.12em] text-foreground hover:text-foreground transition-colors duration-200 group"
               >
-                {hoveredPath === link.href && (
-                  <motion.div
-                    layoutId="navbar-hover"
-                    className="absolute inset-0 bg-foreground/10 rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                {link.name}
+                <span className="relative z-10">{link.name}</span>
+                <span
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px bg-[var(--highlight-primary)] transition-all duration-300 w-0 group-hover:w-4"
+                />
               </Link>
             ))}
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-2 pl-2 md:border-l md:border-border/50">
+          <div className="flex items-center gap-2 ml-auto">
             <ThemeToggle />
 
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-full hover:bg-foreground/10 transition-colors ml-1"
+              className="md:hidden w-8 h-8 flex flex-col items-center justify-center gap-[5px]"
               aria-label="Menu"
             >
               <motion.span
-                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                className="w-4 h-0.5 bg-foreground rounded-full block"
+                animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                className="w-4 h-[1.5px] bg-foreground rounded-full block origin-center"
               />
               <motion.span
                 animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                className="w-4 h-0.5 bg-foreground rounded-full block"
+                className="w-4 h-[1.5px] bg-foreground rounded-full block origin-center"
               />
               <motion.span
-                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                className="w-4 h-0.5 bg-foreground rounded-full block"
+                animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                className="w-4 h-[1.5px] bg-foreground rounded-full block origin-center"
               />
             </button>
           </div>
@@ -117,17 +115,26 @@ export function Navbar() {
       {/* Mobile drawer */}
       <motion.div
         initial={false}
-        animate={mobileOpen ? { opacity: 1, y: 0, pointerEvents: "auto" } : { opacity: 0, y: -20, pointerEvents: "none" }}
-        className="fixed top-20 left-4 right-4 z-40 md:hidden bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl p-4"
+        animate={
+          mobileOpen
+            ? { opacity: 1, y: 0, pointerEvents: "auto" }
+            : { opacity: 0, y: -16, pointerEvents: "none" }
+        }
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-20 left-4 right-4 z-40 md:hidden glass border border-border/60 p-4 shadow-2xl"
+        style={{ borderRadius: 24 }}
       >
-        {links.map((link, i) => (
+        {links.map((link) => (
           <Link
             key={link.name}
             href={link.href}
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-foreground/5 transition-colors"
+            className="flex items-center gap-3 px-3 py-3.5 text-xs font-mono uppercase tracking-[0.15em] text-foreground hover:text-foreground border-b border-border/30 last:border-0 transition-colors"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-highlight-primary/50" />
+            <span
+              className="w-1 h-1 rounded-full shrink-0"
+              style={{ backgroundColor: "var(--highlight-primary)" }}
+            />
             {link.name}
           </Link>
         ))}

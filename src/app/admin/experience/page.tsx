@@ -5,7 +5,7 @@ import { getExperiences, addExperience, deleteExperience, updateExperience } fro
 import { IExperience } from "@/models/Experience";
 
 const inputCls = "w-full px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-highlight-primary/30 text-foreground text-sm";
-const labelCls = "block text-xs text-foreground/50 mb-1 font-medium uppercase tracking-wide";
+const labelCls = "block text-xs text-foreground/80 mb-1 font-medium uppercase tracking-wide";
 
 function formatDateForInput(date?: Date | string) {
   if (!date) return "";
@@ -62,7 +62,7 @@ function ExperienceForm({
           <label className={labelCls}>End Date</label>
           <input name="endDate" type="date" defaultValue={formatDateForInput(initial?.endDate)} className={inputCls} />
         </div>
-        <label className="flex items-center gap-2 text-sm text-foreground/70 pb-2">
+        <label className="flex items-center gap-2 text-sm text-foreground pb-2">
           <input type="checkbox" name="current" defaultChecked={initial?.current} className="accent-highlight-primary" />
           Currently working here
         </label>
@@ -134,15 +134,15 @@ export default function AdminExperience() {
 
       {/* Add new */}
       <div className="bg-card border border-border p-6 rounded-2xl">
-        <h2 className="text-lg font-semibold mb-6 text-foreground/80">➕ Add New Role</h2>
+        <h2 className="text-lg font-semibold mb-6 text-foreground">➕ Add New Role</h2>
         <ExperienceForm onSubmit={handleAdd} submitLabel="Add Experience" isPending={isPending} />
       </div>
 
       {/* Existing */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground/80">Existing Entries ({experiences.length})</h2>
+        <h2 className="text-lg font-semibold text-foreground">Existing Entries ({experiences.length})</h2>
         {experiences.length === 0 && (
-          <div className="p-8 text-center text-foreground/40 bg-card rounded-2xl border border-border">No experience records yet.</div>
+          <div className="p-8 text-center text-foreground/70 bg-card rounded-2xl border border-border">No experience records yet.</div>
         )}
         {experiences.map((exp) => (
           <div key={String(exp._id)} className="bg-card border border-border rounded-2xl overflow-hidden">
@@ -150,11 +150,11 @@ export default function AdminExperience() {
             <div className="flex items-start justify-between px-6 py-4">
               <div>
                 <p className="font-semibold text-foreground">{exp.role}</p>
-                <p className="text-sm text-foreground/60 mt-0.5">
+                <p className="text-sm text-foreground/90 mt-0.5">
                   {exp.company}
                   {exp.location ? ` · ${exp.location}` : ""}
                 </p>
-                <p className="text-xs text-foreground/40 mt-1">
+                <p className="text-xs text-foreground/70 mt-1">
                   {new Date(exp.startDate).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
                   {" → "}
                   {exp.current ? "Present" : exp.endDate ? new Date(exp.endDate).toLocaleDateString("en-GB", { month: "short", year: "numeric" }) : "—"}

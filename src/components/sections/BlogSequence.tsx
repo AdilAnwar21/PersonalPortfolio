@@ -1,8 +1,9 @@
 "use client";
 
-import { FadeIn } from "@/components/animations/FadeIn";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { IBlog } from "@/models/Blog";
+import { TextReveal } from "@/components/animations/TextReveal";
 
 interface Props {
   blogs: IBlog[];
@@ -12,71 +13,153 @@ export function BlogSequence({ blogs }: Props) {
   if (!blogs || blogs.length === 0) return null;
 
   return (
-    <section id="blog" className="py-32 bg-background relative border-t border-border">
-      <div className="max-w-7xl mx-auto px-6">
-        <FadeIn>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-border pb-12 mb-16">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-highlight-primary font-semibold mb-3">Writing</p>
-              <h2 className="text-4xl md:text-6xl font-display font-semibold text-foreground">
-                Latest{" "}
-                <span className="bg-gradient-to-r from-highlight-primary to-highlight-secondary bg-clip-text text-transparent">
-                  Thoughts
-                </span>
-              </h2>
+    <section id="blog" className="py-32 border-t border-border/40">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="font-mono text-[10px] tracking-[0.22em] uppercase mb-8 pl-6 relative"
+              style={{ color: "var(--highlight-primary)" }}
+            >
+              <span
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-px"
+                style={{ backgroundColor: "var(--highlight-primary)" }}
+              />
+              Writing
+            </motion.p>
+            <div
+              className="font-display font-semibold leading-[0.85] tracking-tight"
+              style={{ fontSize: "clamp(3rem, 7vw, 6.5rem)" }}
+            >
+              <TextReveal text="Latest" inView delay={0} stagger={0.03} />
+              <TextReveal text="Thoughts." inView delay={0.2} stagger={0.022} />
             </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="md:pb-3"
+          >
             <Link
               href="/blog"
-              className="px-6 py-3 bg-card border border-border text-foreground text-sm font-semibold rounded-xl hover:bg-highlight-primary/10 hover:border-highlight-primary/30 hover:text-highlight-primary transition-colors whitespace-nowrap"
+              className="flex items-center gap-3 font-mono text-[11px] tracking-[0.18em] uppercase text-foreground hover:text-[var(--highlight-primary)] transition-colors duration-200"
             >
-              View all articles
+              <span>View all</span>
+              <motion.span
+                className="block h-px bg-current"
+                initial={{ width: 16 }}
+                whileHover={{ width: 32 }}
+                transition={{ duration: 0.25 }}
+              />
+              <svg className="w-2.5 h-2.5 -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 7l-10 10M7 7h10v10" />
+              </svg>
             </Link>
-          </div>
-        </FadeIn>
+          </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Blog cards — editorial grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-border/40 rounded-3xl overflow-hidden">
           {blogs.slice(0, 3).map((blog, i) => (
-            <FadeIn key={String(blog._id)} delay={i * 0.1}>
+            <motion.div
+              key={String(blog._id)}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               <Link href={`/blog/${blog.slug}`} className="group block h-full">
-                <article className="p-5 rounded-3xl border border-border bg-card/40 hover:bg-card hover:border-highlight-primary/30 transition-all duration-300 h-full flex flex-col shadow-sm hover:shadow-xl hover:shadow-highlight-primary/5">
-                  {blog.coverImage ? (
-                    <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden mb-5 relative border border-border/50">
-                      <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <article className="h-full flex flex-col border-r border-border/40 last:border-r-0 bg-card hover:bg-card/70 transition-colors duration-300">
+
+                  {/* Cover image */}
+                  <div className="aspect-[16/10] w-full overflow-hidden relative border-b border-border/40">
+                    {blog.coverImage ? (
+                      <img
+                        src={blog.coverImage}
+                        alt={blog.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full flex items-center justify-center"
+                        style={{ background: "color-mix(in srgb, var(--highlight-primary) 4%, var(--card))" }}
+                      >
+                        <span
+                          className="font-display font-semibold text-5xl opacity-[0.06]"
+                          style={{ color: "var(--highlight-primary)" }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    )}
+                    {/* Date — vertical rotated text on left edge */}
+                    <div className="absolute left-0 top-0 bottom-0 w-8 flex items-center justify-center">
+                      <span
+                        className="font-mono text-[9px] tracking-widest uppercase text-foreground/90 -rotate-90 whitespace-nowrap"
+                      >
+                        {new Date(blog.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                      </span>
                     </div>
-                  ) : (
-                    <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden mb-5 relative border border-border/50 bg-gradient-to-br from-highlight-primary/5 to-highlight-secondary/5 flex items-center justify-center">
-                      <span className="text-4xl">📝</span>
-                    </div>
-                  )}
-                  <div className="flex-1 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        {blog.tags?.map((tag: string) => (
-                          <span key={tag} className="text-[10px] px-2 py-1 rounded-md bg-highlight-primary/10 text-highlight-primary font-medium tracking-wide uppercase border border-highlight-primary/20">
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-6">
+                    {/* Tags */}
+                    {blog.tags?.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {blog.tags.slice(0, 2).map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="font-mono text-[9px] tracking-[0.18em] uppercase px-2 py-1 border rounded-full"
+                            style={{
+                              borderColor: "var(--highlight-primary)",
+                              color: "var(--highlight-primary)",
+                              opacity: 0.7,
+                            }}
+                          >
                             {tag}
                           </span>
                         ))}
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-highlight-primary transition-colors line-clamp-2 leading-snug">
-                        {blog.title}
-                      </h3>
-                      <p className="text-sm text-foreground/60 line-clamp-3 mb-6 leading-relaxed">
-                        {blog.summary}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between text-xs text-foreground/40 mt-auto pt-4 border-t border-border/50">
-                      <span>{new Date(blog.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
-                      <span className="flex items-center gap-1 group-hover:text-red-400 transition-colors">
-                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    )}
+
+                    {/* Title */}
+                    <h3
+                      className="font-display font-semibold text-foreground mb-3 leading-snug group-hover:text-[var(--highlight-primary)] transition-colors duration-300 line-clamp-3"
+                      style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)" }}
+                    >
+                      {blog.title}
+                    </h3>
+
+                    <p className="text-sm text-foreground/75 leading-relaxed line-clamp-3 flex-1">
+                      {blog.summary}
+                    </p>
+
+                    {/* Footer */}
+                    <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/40">
+                      <span className="font-mono text-[10px] tracking-wider text-foreground/90 uppercase">
+                        Read more →
+                      </span>
+                      <div className="flex items-center gap-1 font-mono text-[10px] text-foreground/90">
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                         {blog.likes || 0}
-                      </span>
+                      </div>
                     </div>
                   </div>
                 </article>
               </Link>
-            </FadeIn>
+            </motion.div>
           ))}
         </div>
       </div>
