@@ -25,12 +25,10 @@ export function DotSpotlight() {
   const rafRef = useRef<number>(0);
   const activeRef = useRef(false);
 
-  // Don't render on admin or login pages
-  if (pathname?.startsWith("/admin") || pathname?.startsWith("/login")) {
-    return null;
-  }
+  const isExcluded = pathname?.startsWith("/admin") || pathname?.startsWith("/login");
 
   useEffect(() => {
+    if (isExcluded) return;
     // Only on pointer:fine (desktop) devices
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
@@ -125,7 +123,10 @@ export function DotSpotlight() {
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isExcluded]);
+
+  if (isExcluded) return null;
 
   return (
     <canvas

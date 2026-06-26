@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -86,7 +87,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-xs text-foreground/50">Return to <a href="/" className="text-highlight-primary hover:underline">main website</a></p>
+            <p className="text-xs text-foreground/50">Return to <Link href="/" className="text-highlight-primary hover:underline">main website</Link></p>
           </div>
         </div>
       </div>
@@ -107,7 +108,7 @@ export default function LoginPage() {
           </div>
 
           <h2 className="text-4xl lg:text-5xl font-display font-semibold leading-[1.1] tracking-tight text-foreground mb-6">
-            Manage your content <span className="text-highlight-primary">as it's created</span> for your audience.
+            Manage your content <span className="text-highlight-primary">as it&apos;s created</span> for your audience.
           </h2>
           
           <p className="text-foreground/70 text-lg mb-10 leading-relaxed max-w-md">
@@ -124,7 +125,7 @@ export default function LoginPage() {
             </div>
             <div className="space-y-1">
               <div><span className="text-blue-400">event</span>: <span className="text-highlight-primary">blog.published</span></div>
-              <div><span className="text-blue-400">data</span>: {'{'} "<span className="text-foreground">slug</span>": "<span className="text-highlight-secondary">new-design-system</span>", "<span className="text-foreground">status</span>": "<span className="text-green-400">live</span>" {'}'}</div>
+              <div><span className="text-blue-400">data</span>: {'{'} &quot;<span className="text-foreground">slug</span>&quot;: &quot;<span className="text-highlight-secondary">new-design-system</span>&quot;, &quot;<span className="text-foreground">status</span>&quot;: &quot;<span className="text-green-400">live</span>&quot; {'}'}</div>
             </div>
           </div>
 
