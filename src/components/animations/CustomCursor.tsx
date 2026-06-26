@@ -31,6 +31,7 @@ export function CustomCursor() {
   useEffect(() => {
     if (isExcluded) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
 
     const onMove  = (e: MouseEvent) => { mouseX.set(e.clientX); mouseY.set(e.clientY); setVisible(true); };
