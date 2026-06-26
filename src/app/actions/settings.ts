@@ -4,8 +4,6 @@
 import dbConnect from "@/lib/db";
 import Settings from "@/models/Settings";
 import { revalidatePath } from "next/cache";
-import { writeFile } from "fs/promises";
-import path from "path";
 
 export async function getSettings() {
   await dbConnect();
@@ -39,11 +37,10 @@ export async function updateSettings(formData: FormData) {
     const bytes = await resumeFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
     
-    // Save locally to public directory (Note: ephemeral on Vercel)
-    const fileName = `resume-${Date.now()}.pdf`;
-    const filepath = path.join(process.cwd(), "public", "uploads", fileName);
-    await writeFile(filepath, buffer);
-    data.resumePdfUrl = `/uploads/${fileName}`;
+    // Save as Base64 instead of writing locally
+    const base64 = buffer.toString("base64");
+    const mimeType = resumeFile.type || "application/pdf";
+    data.resumePdfUrl = `data:${mimeType};base64,${base64}`;
   } else {
     const resumePdfUrl = formData.get("resumePdfUrl") as string;
     if (resumePdfUrl) data.resumePdfUrl = resumePdfUrl;
@@ -55,11 +52,9 @@ export async function updateSettings(formData: FormData) {
     const bytes = await profilePhoto.arrayBuffer();
     const buffer = Buffer.from(bytes);
     
-    const ext = profilePhoto.name.split('.').pop();
-    const fileName = `profile-${Date.now()}.${ext}`;
-    const filepath = path.join(process.cwd(), "public", "uploads", fileName);
-    await writeFile(filepath, buffer);
-    data.profilePhotoUrl = `/uploads/${fileName}`;
+    const base64 = buffer.toString("base64");
+    const mimeType = profilePhoto.type || "image/jpeg";
+    data.profilePhotoUrl = `data:${mimeType};base64,${base64}`;
   } else {
     const profilePhotoUrl = formData.get("profilePhotoUrl") as string;
     if (profilePhotoUrl) data.profilePhotoUrl = profilePhotoUrl;

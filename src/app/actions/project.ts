@@ -4,8 +4,6 @@
 import dbConnect from "@/lib/db";
 import Project from "@/models/Project";
 import { revalidatePath } from "next/cache";
-import { writeFile } from "fs/promises";
-import path from "path";
 
 export async function getProjects() {
   await dbConnect();
@@ -35,11 +33,10 @@ export async function addProject(formData: FormData) {
     const bytes = await imageFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
     
-    const ext = imageFile.name.split('.').pop();
-    const fileName = `project-${Date.now()}.${ext}`;
-    const filepath = path.join(process.cwd(), "public", "uploads", fileName);
-    await writeFile(filepath, buffer);
-    data.mainImage = `/uploads/${fileName}`;
+    // Store as Base64 Data URI instead of writing to Vercel's ephemeral file system
+    const base64 = buffer.toString("base64");
+    const mimeType = imageFile.type || "image/jpeg";
+    data.mainImage = `data:${mimeType};base64,${base64}`;
   } else {
     data.mainImage = formData.get("mainImage") as string;
   }
@@ -74,14 +71,13 @@ export async function updateProject(id: string, formData: FormData) {
   if (imageFile && imageFile.size > 0) {
     const bytes = await imageFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const ext = imageFile.name.split('.').pop();
-    const fileName = `project-${Date.now()}.${ext}`;
-    const filepath = path.join(process.cwd(), "public", "uploads", fileName);
-    await writeFile(filepath, buffer);
-    data.mainImage = `/uploads/${fileName}`;
+    
+    const base64 = buffer.toString("base64");
+    const mimeType = imageFile.type || "image/jpeg";
+    data.mainImage = `data:${mimeType};base64,${base64}`;
   } else {
-    const mainImage = formData.get("mainImage") as string;
-    if (mainImage) data.mainImage = mainImage;
+    const mainImageStr = formData.get("mainImage") as string;
+    if (mainImageStr) data.mainImage = mainImageStr;
   }
 
   await Project.findByIdAndUpdate(id, data);
