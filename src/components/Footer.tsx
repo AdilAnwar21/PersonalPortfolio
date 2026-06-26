@@ -23,10 +23,12 @@ const socialIconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
 export function Footer() {
   const pathname = usePathname();
   const [socialLinks, setSocialLinks] = useState<ISocialLink[]>([]);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
 
   useEffect(() => {
     getSettings().then((s) => {
       if (s?.socialLinks) setSocialLinks(s.socialLinks);
+      if (s?.profilePhotoUrl) setProfilePhotoUrl(s.profilePhotoUrl);
     });
   }, []);
 
@@ -59,12 +61,20 @@ export function Footer() {
           <div>
             {/* Logo + tagline */}
             <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-[10px] font-mono shrink-0"
-                style={{ backgroundColor: "var(--highlight-primary)" }}
-              >
-                A
-              </div>
+              {profilePhotoUrl ? (
+                <img
+                  src={profilePhotoUrl}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full object-cover ring-2 ring-border shrink-0"
+                />
+              ) : (
+                <div
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-white font-bold text-[10px] font-mono shrink-0"
+                  style={{ backgroundColor: "var(--highlight-primary)" }}
+                >
+                  A
+                </div>
+              )}
               <span className="font-mono text-xs tracking-[0.15em] uppercase text-foreground">
                 Portfolio
               </span>

@@ -52,21 +52,24 @@ export function Navbar() {
           style={{ borderRadius: scrolled ? "9999px" : "9999px" }}
         >
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center shrink-0 mr-auto">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 mr-auto group">
             {profilePhotoUrl ? (
               <img
                 src={profilePhotoUrl}
                 alt="Logo"
-                className="w-7 h-7 rounded-full object-cover"
+                className="w-7 h-7 rounded-full object-cover ring-2 ring-border group-hover:ring-highlight-primary transition-all duration-300"
               />
             ) : (
               <div
-                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold font-display"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold font-display ring-2 ring-border group-hover:ring-highlight-primary transition-all duration-300"
                 style={{ backgroundColor: "var(--highlight-primary)" }}
               >
                 A
               </div>
             )}
+            <span className="hidden sm:block text-[10px] font-mono tracking-[0.18em] uppercase text-foreground/80 group-hover:text-foreground transition-colors duration-200">
+              Portfolio
+            </span>
           </Link>
 
           {/* Desktop links — centered */}
