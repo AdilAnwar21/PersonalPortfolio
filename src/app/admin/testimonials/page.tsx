@@ -97,7 +97,7 @@ export default async function AdminTestimonials() {
                     <form action={approveAction}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 rounded-lg transition-all"
+                        className="btn-admin-primary"
                       >
                         Approve
                       </button>
@@ -107,7 +107,7 @@ export default async function AdminTestimonials() {
                     <form action={rejectAction}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/90 hover:text-foreground hover:border-foreground/30 rounded-lg transition-all"
+                        className="btn-admin"
                       >
                         Reject
                       </button>
@@ -116,7 +116,7 @@ export default async function AdminTestimonials() {
                   <form action={deleteAction}>
                     <button
                       type="submit"
-                      className="px-3 py-1.5 text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 rounded-lg transition-all"
+                      className="btn-admin-danger"
                     >
                       Delete
                     </button>

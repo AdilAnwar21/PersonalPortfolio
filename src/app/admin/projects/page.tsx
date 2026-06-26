@@ -97,7 +97,7 @@ function ProjectForm({
       <button
         type="submit"
         disabled={isPending}
-        className="px-6 py-2.5 bg-foreground text-background font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 text-sm"
+        className="btn-admin-primary disabled:opacity-50"
       >
         {isPending ? "Saving…" : submitLabel}
       </button>
@@ -179,13 +179,13 @@ export default function AdminProjects() {
               <div className="flex items-center gap-3 shrink-0">
                 <button
                   onClick={() => setEditingId(editingId === String(project._id) ? null : String(project._id))}
-                  className="px-4 py-1.5 text-sm border border-border rounded-lg hover:bg-card transition-colors"
+                  className="btn-admin"
                 >
                   {editingId === String(project._id) ? "Cancel" : "Edit"}
                 </button>
                 <button
                   onClick={() => handleDelete(String(project._id))}
-                  className="px-4 py-1.5 text-sm text-red-400 border border-red-400/20 rounded-lg hover:bg-red-400/10 transition-colors"
+                  className="btn-admin-danger"
                 >
                   Delete
                 </button>

@@ -82,7 +82,7 @@ export default async function AdminEnquiries() {
                     <form action={markReadAction}>
                       <button
                         type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-card border border-border text-foreground/90 hover:border-highlight-primary/40 hover:text-highlight-primary rounded-lg transition-all"
+                        className="btn-admin"
                       >
                         Mark Read
                       </button>
@@ -91,7 +91,7 @@ export default async function AdminEnquiries() {
                   <form action={deleteAction}>
                     <button
                       type="submit"
-                      className="px-3 py-1.5 text-xs font-medium bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 rounded-lg transition-all"
+                      className="btn-admin-danger"
                     >
                       Delete
                     </button>

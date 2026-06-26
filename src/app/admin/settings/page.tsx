@@ -154,7 +154,7 @@ export default async function AdminSettings() {
 
         <button
           type="submit"
-          className="w-full py-4 bg-transparent border border-foreground text-foreground font-semibold rounded-xl hover:bg-foreground hover:text-background transition-colors duration-300 text-sm"
+          className="btn-admin-primary w-full"
         >
           Save All Settings
         </button>

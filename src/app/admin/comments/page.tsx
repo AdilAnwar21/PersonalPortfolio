@@ -66,7 +66,7 @@ export default function AdminComments() {
                   <button
                     onClick={() => handleApprove(String(comment._id), comment.blogId?.slug)}
                     disabled={isPending}
-                    className="px-4 py-1.5 text-sm border border-green-500/30 text-green-500 rounded-lg hover:bg-green-500/10 transition-colors disabled:opacity-50"
+                    className="btn-admin-primary disabled:opacity-50"
                   >
                     Approve
                   </button>
@@ -74,7 +74,7 @@ export default function AdminComments() {
                 <button
                   onClick={() => handleDelete(String(comment._id), comment.blogId?.slug)}
                   disabled={isPending}
-                  className="px-4 py-1.5 text-sm text-red-400 border border-red-400/20 rounded-lg hover:bg-red-400/10 transition-colors disabled:opacity-50"
+                  className="btn-admin-danger disabled:opacity-50"
                 >
                   Delete
                 </button>

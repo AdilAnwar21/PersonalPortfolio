@@ -100,7 +100,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const currentPage = navItems.find((n) => n.href === pathname)?.name ?? "Admin";
 
   return (
-    <div className="h-screen overflow-hidden flex text-foreground">
+    <div className="cursor-default-zone h-screen overflow-hidden flex text-foreground">
       {/* ── Sidebar ── */}
       <motion.aside
         animate={{ width: collapsed ? 72 : 240 }}
@@ -196,7 +196,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
             title={collapsed ? "Sign Out" : undefined}
-            className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-400/10 transition-colors ${collapsed ? "justify-center" : ""}`}
+            className={`btn-admin-danger w-full ${collapsed ? "justify-center" : ""}`}
           >
             <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

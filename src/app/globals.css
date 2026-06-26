@@ -62,6 +62,11 @@
     * {
       cursor: none !important;
     }
+    /* Restore normal cursor inside admin panel and login page */
+    .cursor-default-zone,
+    .cursor-default-zone * {
+      cursor: auto !important;
+    }
   }
 
   ::selection {
@@ -176,3 +181,68 @@ body::after {
   -webkit-text-stroke: 1px color-mix(in srgb, var(--foreground) 12%, transparent);
   color: transparent;
 }
+
+/* ── Admin button utilities ── */
+.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, opacity 0.22s ease;
+  white-space: nowrap;
+}
+.btn-admin:hover {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.btn-admin-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--highlight-primary);
+  background: transparent;
+  color: var(--highlight-primary);
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease;
+  white-space: nowrap;
+}
+.btn-admin-primary:hover {
+  background: var(--highlight-primary);
+  color: #ffffff;
+}
+
+.btn-admin-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: 1.5px solid #f87171;
+  background: transparent;
+  color: #f87171;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease;
+  white-space: nowrap;
+}
+.btn-admin-danger:hover {
+  background: #f87171;
+  color: #ffffff;
+}
+

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * DotSpotlight
@@ -18,10 +19,16 @@ import { useEffect, useRef } from "react";
  *     overlay perfectly.
  */
 export function DotSpotlight() {
+  const pathname = usePathname();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const rafRef = useRef<number>(0);
   const activeRef = useRef(false);
+
+  // Don't render on admin or login pages
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/login")) {
+    return null;
+  }
 
   useEffect(() => {
     // Only on pointer:fine (desktop) devices

@@ -28,7 +28,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-background text-foreground">
+    <div className="cursor-default-zone min-h-screen flex w-full bg-background text-foreground">
       
       {/* LEFT SIDE - Form */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center relative p-6 md:p-12">
@@ -79,7 +79,7 @@ export default function LoginPage() {
             
             <button
               type="submit"
-              className="w-full py-3.5 mt-2 bg-highlight-primary text-white font-semibold rounded-xl hover:bg-highlight-primary/90 transition-colors duration-200 text-sm shadow-lg shadow-highlight-primary/20"
+              className="w-full py-3.5 mt-2 font-semibold rounded-xl text-sm transition-all duration-200 border-2 border-highlight-primary bg-highlight-primary text-white hover:bg-transparent hover:text-highlight-primary shadow-lg shadow-highlight-primary/20"
             >
               Sign In
             </button>
